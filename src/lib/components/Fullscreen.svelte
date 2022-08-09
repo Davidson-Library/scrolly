@@ -75,6 +75,7 @@
         border-radius: 50%;
         display: flex;
         border: 3px solid white;
+        z-index: 1;
     }
 
     .button:focus-within {

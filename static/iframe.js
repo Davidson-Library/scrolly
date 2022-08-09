@@ -1,4 +1,5 @@
-const iframe = document.currentScript.previousElementSibling;
+const id = document.currentScript.dataset.hydrateId;
+const iframe = document.querySelector(`#${id}`);
 
 iframe.setAttribute("scrolling", "no")
 

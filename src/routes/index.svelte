@@ -17,7 +17,6 @@ import get_snippet from '$lib/utils/get_snippet';
 
 	let validity = ''
 
-
 	async function handle_input() {
 		const link = input.value;
 

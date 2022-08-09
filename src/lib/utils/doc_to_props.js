@@ -109,8 +109,13 @@ export default async function transform_data(doc) {
   slides = await Promise.all(slides);
   slides = slides.filter(({ annotation }) => annotation);
 
+  if (!slides.length) {
+    throw new Error('No slides found. Make sure you followed the template.')
+  } 
+
   let title = doc?.title || '';
   let credit = doc?.credit || '';
+  
 
   return { slides, title, credit }
 }

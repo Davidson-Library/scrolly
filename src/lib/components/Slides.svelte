@@ -136,6 +136,7 @@
 
 		.scrolly-annotations {
 			background: transparent;
+			z-index: 1;
 		}
 
 		.scrolly-annotation-title {
