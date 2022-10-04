@@ -56,7 +56,7 @@ import get_snippet from '$lib/utils/get_snippet';
 <body>
 	<main>
 		<nav>
-			<a href="/v1/embed?id={TEMPLATE_LINK}">Example</a>
+			<a href="/v1/embed?id={TEMPLATE_LINK}" rel="external">Example</a>
 			<a href={FAQ_LINK} target="_blank" rel="external nofollow">F.A.Q.</a>
 			<a href="https://github.com/john-michael-murphy/scrollyteller" target="_blank" rel="external nofollow" >Github</a>
 		</nav>
