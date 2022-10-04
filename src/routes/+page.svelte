@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import download_doc from "$lib/utils/download_doc.js";
-import get_snippet from '$lib/utils/get_snippet';
+	import get_snippet from '$lib/utils/get_snippet';
 
 	const TEMPLATE_LINK = `https://docs.google.com/document/d/1TavVvjGEsgbP22xQ0elc_6_fxHIxjqyLXZhzEE3UA2k`;
 	const FAQ_LINK = 'https://docs.google.com/document/d/e/2PACX-1vQCjUjR49YvH9A_kH32RKwOgbYfuBE8WQC1KZ3L6mKihIoDjy6fIOggErjuGXXSL9FB7jO2RVWboeF5/pub';
