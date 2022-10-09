@@ -5,7 +5,7 @@ on:
 
 env: 
   HOST: https://digitallearning.davidson.edu
-  BASE_PATH: john-michael-murphy/scrollyteller
+  BASE_PATH: /john-michael-murphy/scrollyteller
 
 name: 🚀 Deploy Website
 jobs:
@@ -31,4 +31,4 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: './build/'
     - name: 🖨 Print endpoint
-      run: echo '$HOST/$BASE_PATH' >> $GITHUB_STEP_SUMMARY
+      run: echo '$HOST$BASE_PATH' >> $GITHUB_STEP_SUMMARY
