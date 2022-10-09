@@ -1,4 +1,4 @@
-> ⚠️ This is the codebase for scrollyteller. To __use__ scrollyteller head to: https://digitallearning.davidson.edu/john-michael-murphy/scrollyteller/
+> ⚠️ This is the codebase for scrollyteller. To learn how to __use__ scrollyteller head to: https://digitallearning.davidson.edu/john-michael-murphy/scrollyteller/
 
 ## About
 This is a tool for generating scroll-driven webpages from Google Docs.
@@ -11,4 +11,5 @@ First, make sure you have NodeJS 18+ installed on your machine. (This is easily 
 
 ## Deployment
 
-This application uses a 
+Everytime a change is pushed to the project's `main` git branch, it triggers a [github action](./.github/workflows/main.yml), which deploys the site's static build output to an FTP server maintained by Davidson College and @jacobheil. Those files are then exposed at https://digitallearning.davidson.edu/john-michael-murphy/scrollyteller/. 
+

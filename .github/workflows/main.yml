@@ -22,7 +22,7 @@ jobs:
     - name: 🛠 Install dependencies
       run: npm i 
     - name: 🛠 Build project
-      run: BASE_PATH={{ env.BASE_PATH }} npm run build
+      run: npm run build
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.2
       with:
@@ -31,4 +31,4 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: './build/'
     - name: 🖨 Print endpoint
-      run: echo '${{ env.HOST }}/${{ env.BASE_PATH }}' >> $GITHUB_STEP_SUMMARY
+      run: echo '$HOST/$BASE_PATH' >> $GITHUB_STEP_SUMMARY
