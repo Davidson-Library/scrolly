@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 
-    export let message = 'Loading'
+	export let message = 'Loading';
 	let show = false;
 
 	onMount(() => {

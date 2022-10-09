@@ -6,7 +6,7 @@
 
 	function checkConnection() {
 		timeoutRef = setTimeout(() => {
-            offline = !window.navigator.onLine;
+			offline = !window.navigator.onLine;
 			checkConnection();
 		}, 2000);
 
@@ -17,17 +17,17 @@
 </script>
 
 <section>
-    {#if offline}
-        <span>Offline. Please connect to the internet.</span>
-    {:else}
-	 <span>
-		 <slot />
-	</span>
-    {/if}
+	{#if offline}
+		<span>Offline. Please connect to the internet.</span>
+	{:else}
+		<span>
+			<slot />
+		</span>
+	{/if}
 </section>
 
 <style>
-    section {
+	section {
 		position: fixed;
 		top: 0;
 		right: 0;
@@ -37,8 +37,8 @@
 		align-items: center;
 		justify-content: center;
 		overflow: hidden;
-        font-size: 16px;
-        font-family: var(--scrolly-serif);
+		font-size: 16px;
+		font-family: var(--scrolly-serif);
 	}
 
 	span {

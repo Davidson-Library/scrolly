@@ -1,35 +1,36 @@
 <script>
 	import { onMount } from 'svelte';
-	import download_doc from "$lib/utils/download_doc.js";
+	import download_doc from '$lib/utils/download_doc.js';
 	import get_snippet from '$lib/utils/get_snippet';
 	import { base } from '$app/paths';
 
 	const TEMPLATE_LINK = `https://docs.google.com/document/d/1TavVvjGEsgbP22xQ0elc_6_fxHIxjqyLXZhzEE3UA2k`;
-	const FAQ_LINK = 'https://docs.google.com/document/d/e/2PACX-1vQCjUjR49YvH9A_kH32RKwOgbYfuBE8WQC1KZ3L6mKihIoDjy6fIOggErjuGXXSL9FB7jO2RVWboeF5/pub';
+	const FAQ_LINK =
+		'https://docs.google.com/document/d/e/2PACX-1vQCjUjR49YvH9A_kH32RKwOgbYfuBE8WQC1KZ3L6mKihIoDjy6fIOggErjuGXXSL9FB7jO2RVWboeF5/pub';
 
 	let input;
 	let embed_url = 'Loading...';
 	let snippet = 'Loading...';
-	
+
 	onMount(() => {
 		input.focus();
 		set_id(TEMPLATE_LINK);
 	});
 
-	let validity = ''
+	let validity = '';
 
 	async function handle_input() {
 		const link = input.value;
 
 		validity = '';
-		
+
 		if (!link) {
 			set_id(TEMPLATE_LINK);
 		} else {
 			try {
 				set_id(link);
-				await download_doc(link)
-			} catch(e) {
+				await download_doc(link);
+			} catch (e) {
 				validity = e.message;
 			}
 		}
@@ -38,7 +39,7 @@
 	}
 
 	function get_preview_link(id) {
-		const extension = import.meta.env.DEV ? '' : '.html'
+		const extension = import.meta.env.DEV ? '' : '.html';
 		return `${base}/v1/embed${extension}?id=${id}`;
 	}
 
@@ -50,8 +51,6 @@
 </script>
 
 <svelte:head>
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link
 		href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
 		rel="stylesheet"
@@ -63,7 +62,9 @@
 		<nav>
 			<a href={get_preview_link(TEMPLATE_LINK)} rel="external">Example</a>
 			<a href={FAQ_LINK} target="_blank" rel="external nofollow">F.A.Q.</a>
-			<a href="https://github.com/Davidson-Library/scrolly" target="_blank" rel="external nofollow" >Github</a>
+			<a href="https://github.com/Davidson-Library/scrolly" target="_blank" rel="external nofollow"
+				>Github</a
+			>
 		</nav>
 		<h1>scrollyteller</h1>
 		<h2>Generate scroll-driven stories with Google Docs</h2>
@@ -103,7 +104,7 @@
 					/>
 				</form>
 				{#if validity}
-				<p class="error-message">{validity}</p>
+					<p class="error-message">{validity}</p>
 				{/if}
 			</li>
 			<li>
@@ -229,12 +230,12 @@
 
 	input[type='text']::placeholder {
 		color: black;
-		opacity: .4; 
-		transition: opacity .1s;
+		opacity: 0.4;
+		transition: opacity 0.1s;
 	}
 
 	input[type='text']::invalid {
-	background: blue;
+		background: blue;
 	}
 
 	input:focus::placeholder {
@@ -289,7 +290,7 @@
 
 	footer p {
 		all: unset;
-		font-size: .8rem;
+		font-size: 0.8rem;
 		width: 100%;
 		display: block;
 		text-align: center;

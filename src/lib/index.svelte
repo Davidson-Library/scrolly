@@ -56,8 +56,6 @@
 	{/if}
 </div>
 
-
-
 <style>
 	main {
 		position: relative;

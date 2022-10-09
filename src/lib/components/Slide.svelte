@@ -1,13 +1,12 @@
 <script>
-import { onMount } from "svelte";
-import Loading from "./Loading.svelte";
-
+	import { onMount } from 'svelte';
+	import Loading from './Loading.svelte';
 
 	export let type;
 	export let slide;
 	export let alt_text = '';
 	export let caption = '';
-	
+
 	onMount(async () => {
 		type = await type;
 	});

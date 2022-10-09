@@ -1,9 +1,9 @@
-on: 
+on:
   push:
     branches:
       - main
 
-env: 
+env:
   HOST: https://digitallearning.davidson.edu
   BASE_PATH: /john-michael-murphy/scrollyteller
 
@@ -13,22 +13,22 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v2
-    - name: 🚧 Setup up node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
-    - name: 🛠 Install dependencies
-      run: npm i 
-    - name: 🛠 Build project
-      run: npm run build
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.3.2
-      with:
-        server: ftp.inkandbolts.com
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: './build/'
-    - name: 🖨 Print endpoint
-      run: echo '$HOST$BASE_PATH' >> $GITHUB_STEP_SUMMARY
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+      - name: 🚧 Setup up node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: 🛠 Install dependencies
+        run: npm i
+      - name: 🛠 Build project
+        run: npm run build
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        with:
+          server: ftp.inkandbolts.com
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: './build/'
+      - name: 🖨 Print endpoint
+        run: echo '$HOST$BASE_PATH' >> $GITHUB_STEP_SUMMARY
