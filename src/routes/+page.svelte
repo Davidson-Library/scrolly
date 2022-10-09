@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import download_doc from "$lib/utils/download_doc.js";
 	import get_snippet from '$lib/utils/get_snippet';
+	import { base } from '$app/paths';
 
 	const TEMPLATE_LINK = `https://docs.google.com/document/d/1TavVvjGEsgbP22xQ0elc_6_fxHIxjqyLXZhzEE3UA2k`;
 	const FAQ_LINK = 'https://docs.google.com/document/d/e/2PACX-1vQCjUjR49YvH9A_kH32RKwOgbYfuBE8WQC1KZ3L6mKihIoDjy6fIOggErjuGXXSL9FB7jO2RVWboeF5/pub';
@@ -36,10 +37,14 @@
 		input.setCustomValidity(validity);
 	}
 
+	function get_preview_link(id) {
+		const extension = import.meta.env.DEV ? '' : '.html'
+		return `${base}/v1/embed${extension}?id=${id}`;
+	}
+
 	function set_id(id) {
-	    const route = import.meta.env.DEV ? 'v1/embed' : 'v1/embed.html';
-		embed_url = new URL(`/${route}?id=${id}`, window.location.origin).toString();
-		const script_url = new URL(`/iframe.js`, window.location.origin).toString();
+		embed_url = new URL(get_preview_link(id), window.location.origin).toString();
+		const script_url = new URL(`${base}/iframe.js`, window.location.origin).toString();
 		snippet = get_snippet(embed_url, script_url);
 	}
 </script>
@@ -56,9 +61,9 @@
 <body>
 	<main>
 		<nav>
-			<a href="/v1/embed?id={TEMPLATE_LINK}" rel="external">Example</a>
+			<a href={get_preview_link(TEMPLATE_LINK)} rel="external">Example</a>
 			<a href={FAQ_LINK} target="_blank" rel="external nofollow">F.A.Q.</a>
-			<a href="https://github.com/john-michael-murphy/scrollyteller" target="_blank" rel="external nofollow" >Github</a>
+			<a href="https://github.com/Davidson-Library/scrolly" target="_blank" rel="external nofollow" >Github</a>
 		</nav>
 		<h1>scrollyteller</h1>
 		<h2>Generate scroll-driven stories with Google Docs</h2>
