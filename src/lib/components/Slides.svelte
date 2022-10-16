@@ -195,5 +195,7 @@
 	.scrolly-visible {
 		opacity: 1;
 		pointer-events: auto;
+		transition: opacity 0.2s ease-in-out, opacity .5s ease-in-out;
+		transition-delay: .25s;
 	}
 </style>
