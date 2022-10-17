@@ -25,11 +25,12 @@ jobs:
       - name: 🛠 Build project
         run: npm run build
       - name: 📂 Sync files
-        uses: sebastianpopp/ftp-action@releases/v2
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
-          host: ftp.inkandbolts.com
-          user: ${{ secrets.FTP_USERNAME }}
+          server: ftp.inkandbolts.com
+          username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          localDir: './build/'
+          local-dir: './build/'
+          server-dir: './scrollyteller'
       - name: 🖨 Print endpoint
         run: echo $HOST$BASE_PATH >> $GITHUB_STEP_SUMMARY
