@@ -28,7 +28,7 @@ jobs:
         uses: sebastianpopp/ftp-action@releases/v2
         with:
           host: ftp.inkandbolts.com
-          username: ${{ secrets.FTP_USERNAME }}
+          user: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           localDir: './build/'
       - name: 🖨 Print endpoint
