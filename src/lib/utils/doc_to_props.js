@@ -60,9 +60,20 @@ async function guess_type(slide) {
 	}
 }
 
+function remove_smart_quotes(blob = '') {
+	return blob.replace(/[\u2018\u2019]/g, "'") // smart single quotes
+		.replace(/[\u201C\u201D]/g, '"'); // smart double quotes
+}
+
 function clean_slide(obj) {
 	return Object.fromEntries(
-		Object.entries(obj).map(([key, value]) => [key.toLowerCase().trim(), (value || '').trim()])
+		Object.entries(obj).map(([key, value]) => {
+			key = key.toLowerCase().trim()
+			value = (value || '').trim();
+			value = remove_smart_quotes(value)
+
+			return [key, value]
+		})
 	);
 }
 
