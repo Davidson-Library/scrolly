@@ -87,23 +87,39 @@ function derive_type(type, slide) {
 	return undefined;
 }
 
+function maybe_get_search_params(text) {
+	try {
+		return new URL(text).search
+	} catch {
+		return ''
+	}
+}
+
 function fix_bad_slides(text) {
-	if (GDRIVE_LINK.test(text)) {
-		const [, fileId] = text.match(GDRIVE_LINK);
-		return `https://drive.google.com/uc?id=${fileId}`;
-	}
+	try {		
+		if (GDRIVE_LINK.test(text)) {
+			const [, fileId] = text.match(GDRIVE_LINK);
+			return `https://drive.google.com/uc?id=${fileId}`;
+		}
 
-	if (YOUTUBE_LINK.test(text)) {
-		const [, , fileId] = text.match(YOUTUBE_LINK);
-		return `<iframe src="https://www.youtube.com/embed/${fileId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-	}
+		if (YOUTUBE_LINK.test(text)) {
+			const [, , fileId] = text.match(YOUTUBE_LINK);
+			let url = `https://www.youtube.com/embed/${fileId}`
+			const start = new URL(text).searchParams.get('t');
+			if (start) url += `?start=${start}`;
+			return `<iframe src="${url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+		}
 
-	if (VIMEO_LINK.test(text)) {
-		const [, fileId] = text.match(VIMEO_LINK);
-		return `<iframe src="https://player.vimeo.com/video/${fileId}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
-	}
+		if (VIMEO_LINK.test(text)) {
+			const [, fileId] = text.match(VIMEO_LINK);
+			return `<iframe src="https://player.vimeo.com/video/${fileId}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+		}
 
-	return text;
+		return text;
+	} catch (e) {
+		console.error(e);
+		return text;
+	}
 }
 
 export default async function transform_data(doc) {
