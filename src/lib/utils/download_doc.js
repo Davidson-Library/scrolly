@@ -67,7 +67,6 @@ export default async function download_doc(link) {
 		);
 
 	try {
-		console.log(parse_html(html))
 		return parse_html(html);
 	} catch (e) {
 		console.error(e);

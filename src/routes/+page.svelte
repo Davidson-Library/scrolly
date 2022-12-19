@@ -66,7 +66,7 @@
 				>Github</a
 			>
 		</nav>
-		<h1>Scrollyteller</h1>
+		<h1>scrollyteller</h1>
 		<h2>Generate scroll-driven stories with Google Docs</h2>
 		<h3>Instructions</h3>
 		<ol>
