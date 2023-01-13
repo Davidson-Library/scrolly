@@ -5,7 +5,7 @@ on:
 
 env:
   HOST: https://scrollytellerdh.digitalprojects.davidson.edu
-  BASE_PATH: /
+  BASE_PATH: 
 
 name: 🚀 Deploy Website
 jobs:
