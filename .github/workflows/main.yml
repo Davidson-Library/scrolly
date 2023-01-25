@@ -4,8 +4,8 @@ on:
       - main
 
 env:
-  HOST: https://digitalprojects.davidson.edu/scrollytellerdh
-  BASE_PATH: 
+  HOST: https://digitalprojects.davidson.edu
+  BASE_PATH: /scrollytellerdh
 
 name: 🚀 Deploy Website
 jobs:
