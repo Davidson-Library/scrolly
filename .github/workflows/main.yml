@@ -31,7 +31,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: './build/'
-          server-dir: './scrollytellerdh'
+          server-dir: './scrollytellerdh/'
           dangerous-clean-slate: true
       - name: 🖨 Print endpoint
         run: echo $HOST$BASE_PATH >> $GITHUB_STEP_SUMMARY
