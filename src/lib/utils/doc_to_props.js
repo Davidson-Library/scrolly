@@ -144,6 +144,7 @@ export default async function transform_data(doc) {
 
 	let title = doc?.title || '';
 	let credit = doc?.credit || '';
+	let cover = doc?.cover || '';
 
-	return { slides, title, credit };
+	return { title, credit, cover, slides };
 }

@@ -28,14 +28,8 @@
 </script>
 
 <section bind:this={rootEl}>
+	
 	<ol class="scrolly-annotations">
-		{#if title || credit}
-			<li class="scrolly-annotation" use:observe data-index={0}>
-				<span class="scrolly-annotation-title">
-					<TitleSlide {title} {credit} />
-				</span>
-			</li>
-		{/if}
 		{#each slides as { annotation }, index}
 			<li
 				class="scrolly-annotation"
@@ -101,17 +95,6 @@
 		min-height: 100vh;
 		margin: auto;
 		white-space: pre-wrap;
-	}
-
-	.scrolly-annotation-title {
-		min-height: 100vh;
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		z-index: 1;
-		color: white;
-		padding: 20px;
 	}
 
 	.scrolly-annotation-text {

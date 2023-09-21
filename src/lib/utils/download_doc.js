@@ -54,7 +54,7 @@ export default async function download_doc(link) {
 	const shareError =
 		'Cannot access Google Doc. Make sure you published your document to the web (File > Share > Publish to web)';
 
-	const res = await fetch(url).catch((e) => {
+	const res = await fetch(url, { cache: 'no-store' }).catch((e) => {
 		throw new Error(shareError);
 	});
 

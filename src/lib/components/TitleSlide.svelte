@@ -1,15 +1,45 @@
 <script>
 	export let title;
 	export let credit;
+	export let cover;
 </script>
 
-<div>
-	<h1>{@html title}</h1>
-	<hr />
-	<p>{@html credit}</p>
-</div>
+<section>
+	{#if title || credit}
+	<div>
+		<h1>{@html title}</h1>
+		<hr />
+		<p>{@html credit}</p>
+	</div>
+	{/if}
+	{#if cover}
+		 <img src={cover} alt="cover" fetchpriority="high" />
+	{/if}
+
+</section>
 
 <style>
+	section {
+		all: unset;
+		height: 100vh;
+		width: 100vw;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	div {
+		position: relative;
+		z-index: 1;
+		background: rgb(0, 0, 0, 0.75);
+		color: white;
+		padding: 20px 20px;
+		margin: 20px;
+		border-radius: 5px;
+		box-shadow: 2px 2px 3px rgb(0 0 0 / 40%);
+	}
+
 	h1 {
 		all: unset;
 		display: block;
@@ -29,9 +59,19 @@
 
 	p {
 		all: unset;
+		position: relative;
+		z-index: 1;
 		display: block;
 		font-family: var(--scrolly-sans);
 		font-size: 18px;
 		line-height: 24px;
+	}
+
+	img {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		top: 0;
 	}
 </style>

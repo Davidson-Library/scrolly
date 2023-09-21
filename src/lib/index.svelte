@@ -6,6 +6,7 @@
 	import download_doc from '$lib/utils/download_doc.js';
 	import doc_to_props from '$lib/utils/doc_to_props.js';
 	import Fullscreen from './components/Fullscreen.svelte';
+	import TitleSlide from './components/TitleSlide.svelte';
 
 	let props;
 	let error;
@@ -38,7 +39,8 @@
 </script>
 
 <div>
-	<main>
+	<main class:disabled={iframe && !fullscreen}>
+		<TitleSlide title={props?.title} credit={props?.credit} cover={props?.cover} />
 		{#if props?.slides?.length}
 			<Slides {...props} />
 		{:else if error}
@@ -59,5 +61,9 @@
 <style>
 	main {
 		position: relative;
+	}
+
+	main.disabled {
+		pointer-events: none;
 	}
 </style>

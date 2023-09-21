@@ -1,8 +1,6 @@
 const id = document.currentScript.dataset.hydrateId;
 const iframe = document.querySelector(`#${id}`);
 
-iframe.setAttribute('scrolling', 'no');
-
 function enableParentScroll() {
 	const scrollY = document.body.style.top;
 	document.body.style.position = '';
@@ -53,7 +51,7 @@ function openFullscreen() {
 	disableParentScroll();
 }
 
-document.addEventListener('keydown', () => {
+document.addEventListener('keydown', (e) => {
 	if (e.code === 'Escape') closeFullscreen();
 });
 
