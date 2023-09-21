@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import Loading from './Loading.svelte';
+	import Html from './Html.svelte';
 
 	export let type;
 	export let slide;
@@ -22,6 +23,8 @@
 		<div class="scrolly-slide-iframe">
 			{@html slide}
 		</div>
+	{:else if type === 'html'}
+		<Html html={slide} />
 	{:else if type === 'text'}
 		<span class="scrolly-slide-text">
 			{@html slide}

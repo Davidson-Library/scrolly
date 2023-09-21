@@ -3,6 +3,7 @@ export const IS_VIDEO = /^\S+\.gif|jpe?g|tiff?|png|webp|bmp$/is;
 export const GDRIVE_LINK = /^https:\/\/drive\.google\.com\/file\/d\/([-\w]{25,}(?!.*[-\w]{25,}))/is;
 export const YOUTUBE_LINK = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/is;
 export const VIMEO_LINK = /^.*vimeo\.com\/([^#\&\?]*).*/is;
+export const TIKTOK_LINK = /^.*tiktok\.com\/(.*)\/video\/.*/is;
 
 function is_url(url) {
 	try {
@@ -50,6 +51,17 @@ function is_video(src) {
 	});
 }
 
+async function get_tiktok_embed(src) {
+	try {
+		const res =	fetch(`https://www.tiktok.com/oembed?url=${src}`)
+		const json = res.json();
+		console.log(json);
+		return 'hello'
+	} catch {
+		
+	}
+} 
+
 async function guess_type(slide) {
 	try {
 		const type = await Promise.any([is_image(slide), is_video(slide)]);
@@ -82,17 +94,10 @@ function derive_type(type, slide) {
 	if (IS_VIDEO.test(slide)) return 'video';
 	if (YOUTUBE_LINK.test(slide)) return 'iframe';
 	if (VIMEO_LINK.test(slide)) return 'iframe';
+	if (TIKTOK_LINK.test(slide)) return 'html';
 	if (type) return type;
 	if (!is_url(slide)) return 'text';
 	return undefined;
-}
-
-function maybe_get_search_params(text) {
-	try {
-		return new URL(text).search
-	} catch {
-		return ''
-	}
 }
 
 function fix_bad_slides(text) {
@@ -115,6 +120,10 @@ function fix_bad_slides(text) {
 			return `<iframe src="https://player.vimeo.com/video/${fileId}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
 		}
 
+		if (TIKTOK_LINK.test(text)) {
+			return `<blockquote class=\"tiktok-embed\" cite=\"https://www.tiktok.com/@scout2015/video/6718335390845095173\" data-video-id=\"6718335390845095173\" data-embed-from=\"oembed\" style=\"max-width: 605px;min-width: 325px;\" > <section> <a target=\"_blank\" title=\"@scout2015\" href=\"https://www.tiktok.com/@scout2015?refer=embed\">@scout2015</a> <p>Scramble up ur name & I’ll try to guess it😍❤️ <a title=\"foryoupage\" target=\"_blank\" href=\"https://www.tiktok.com/tag/foryoupage?refer=embed\">#foryoupage</a> <a title=\"petsoftiktok\" target=\"_blank\" href=\"https://www.tiktok.com/tag/petsoftiktok?refer=embed\">#petsoftiktok</a> <a title=\"aesthetic\" target=\"_blank\" href=\"https://www.tiktok.com/tag/aesthetic?refer=embed\">#aesthetic</a></p> <a target=\"_blank\" title=\"♬ original sound - 𝐇𝐚𝐰𝐚𝐢𝐢𓆉\" href=\"https://www.tiktok.com/music/original-sound-6689804660171082501?refer=embed\">♬ original sound - 𝐇𝐚𝐰𝐚𝐢𝐢𓆉</a> </section> </blockquote> <script async src=\"https://www.tiktok.com/embed.js\"></script>`
+		}
+
 		return text;
 	} catch (e) {
 		console.error(e);
@@ -128,7 +137,7 @@ export default async function transform_data(doc) {
 	slides = slides.map(async (s) => {
 		let { annotation, caption, 'alt-text': alt_text, slide, type } = clean_slide(s);
 
-		slide = fix_bad_slides(slide);
+		slide = await fix_bad_slides(slide);
 		type = derive_type(type, slide);
 		if (!type) type = guess_type(slide);
 

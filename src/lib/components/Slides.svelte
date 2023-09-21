@@ -1,10 +1,7 @@
 <script>
 	import Slide from './Slide.svelte';
-	import TitleSlide from './TitleSlide.svelte';
 
 	export let slides;
-	export let title;
-	export let credit;
 
 	let currIndex = -1;
 	let rootEl;
