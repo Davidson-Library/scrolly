@@ -2,15 +2,19 @@
 	export let title;
 	export let credit;
 	export let cover;
+	export let hover = true;
 </script>
 
-<section style:--background={cover ? 'black' : 'white'}>
+<section style:--background={cover ? 'black' : 'white'} class:hover>
 	{#if title || credit}
 	<div>
 		<h1>{@html title}</h1>
 		<hr />
 		<p>{@html credit}</p>
 	</div>
+	{/if}
+	{#if hover}
+		<aside />
 	{/if}
 	{#if cover}
 		 <img src={cover} alt="cover" fetchpriority="high" />
@@ -76,5 +80,24 @@
 		height: 100%;
 		object-fit: cover;
 		top: 0;
+	}
+
+	.hover::before {
+		content: '';
+        width: 100%;
+        display: block;
+        height: 100%;
+        background: transparent;
+        position: fixed;
+        top: 0;
+        bottom: 0; 
+		left: 0; 
+		right: 0;
+        z-index: 1;
+		transition: all .3s ease-in-out;
+	}
+
+	.hover:hover::before {
+		background: rgb(255 255, 255, 0.4);
 	}
 </style>

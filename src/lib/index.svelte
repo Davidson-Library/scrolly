@@ -10,7 +10,7 @@
 
 	let props;
 	let error;
-	let iframe = false;
+	let iframe;
 	let url;
 
 	onMount(async () => {

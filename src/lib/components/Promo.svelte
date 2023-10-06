@@ -35,7 +35,25 @@
 	}
 
     a {
+        display: block;
         text-decoration: none;
+        position: relative;
+    }
+
+    a::before {
+        content: '';
+        width: 100%;
+        display: block;
+        height: 100%;
+        background: transparent;
+        position: fixed;
+        top: 0;
+        bottom: 0; left: 0; right: 0;
+        z-index: 1;
+    }
+
+    a::before  {
+       background: rgba(255, 255, 255, 0.9);
     }
 
     a:hover span {

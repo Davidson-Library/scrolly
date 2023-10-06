@@ -41,12 +41,11 @@
 	<div class="scrolly-slides-outer">
 		<ol class="scrolly-slides">
 			{#each slides as { type, slide, alt_text, caption }, index}
-				<li
-					class={`scrolly-slide scrolly-slide-${index}`}
-					class:scrolly-visible={index === currIndex}
-				>
-					<Slide {type} {slide} {alt_text} {caption} />
-				</li>
+				{#if index === currIndex}
+					<li class={`scrolly-slide scrolly-slide-${index}`}>
+						<Slide {type} {slide} {alt_text} {caption} />
+					</li>
+				{/if}
 			{/each}
 		</ol>
 	</div>
@@ -166,13 +165,6 @@
 		bottom: 0;
 		right: 0;
 		left: 0;
-		opacity: 0;
 		overflow: hidden;
-		pointer-events: none;
-	}
-
-	.scrolly-visible {
-		opacity: 1;
-		pointer-events: auto;
 	}
 </style>

@@ -14,25 +14,27 @@
 </script>
 
 <figure>
-	{#if type === 'image'}
-		<img class="scrolly-slide-media" src={slide} alt={alt_text} />
-	{:else if type === 'video'}
-		<!-- svelte-ignore a11y-media-has-caption -->
-		<video class="scrolly-slide-media" src={slide} playsinline controls alt={alt_text} />
-	{:else if type === 'iframe'}
-		<div class="scrolly-slide-iframe">
-			{@html slide}
-		</div>
-	{:else if type === 'html'}
-		<Html html={slide} />
-	{:else if type === 'text'}
-		<span class="scrolly-slide-text">
-			{@html slide}
-		</span>
-	{:else if type instanceof Promise}
+	{#await slide}
 		<div aria-label="Loading slide" class="scrolly-slide-message">
 			<Loading />
 		</div>
+	{:then { type, value }}
+	{#if type === 'image'}
+		<img class="scrolly-slide-media" src={value} alt={alt_text} />
+	{:else if type === 'video'}
+		<!-- svelte-ignore a11y-media-has-caption -->
+		<video class="scrolly-slide-media" src={value} playsinline controls alt={alt_text} />
+	{:else if type === 'iframe'}
+		<div class="scrolly-slide-iframe">
+			{@html value}
+		</div>
+	{:else if type === 'html'}
+		
+				<Html html={value} />
+	{:else if type === 'text'}
+		<span class="scrolly-slide-text">
+			{@html value}
+		</span>	
 	{:else}
 		<div class="scrolly-slide-message">
 			<span>Error: The type "{type}" is not supported.</span>
@@ -43,6 +45,11 @@
 			{@html caption}
 		</figcaption>
 	{/if}
+	{:catch e}
+		<div class="scrolly-slide-message">
+			<span>${e.stack}</span>
+		</div>
+	{/await}
 </figure>
 
 <style>
