@@ -45,8 +45,7 @@
 
 	function set_id(id) {
 		embed_url = new URL(get_preview_link(id), window.location.origin).toString();
-		const script_url = new URL(`${base}/iframe.js`, window.location.origin).toString();
-		snippet = get_snippet(embed_url, script_url);
+		snippet = get_snippet(embed_url);
 	}
 </script>
 
