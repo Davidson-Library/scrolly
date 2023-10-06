@@ -167,7 +167,6 @@
 		right: 0;
 		left: 0;
 		opacity: 0;
-		transition: all 0.15s;
 		overflow: hidden;
 		pointer-events: none;
 	}
@@ -175,7 +174,5 @@
 	.scrolly-visible {
 		opacity: 1;
 		pointer-events: auto;
-		transition: opacity 0.2s ease-in-out, opacity .5s ease-in-out;
-		transition-delay: .25s;
 	}
 </style>

@@ -231,7 +231,6 @@
 	input[type='text']::placeholder {
 		color: black;
 		opacity: 0.4;
-		transition: opacity 0.1s;
 	}
 
 	input[type='text']::invalid {
