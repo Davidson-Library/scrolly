@@ -5,7 +5,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		paths: {
-			base: process.env.BASE_PATH || ''
+			base: '/hello' || process.env.BASE_PATH || '',
 		}
 	}
 };
