@@ -54,7 +54,7 @@ function is_video(src) {
 async function guess_type(slide) {
 	try {
 		if (await is_image(slide)) return 'image';
-		if (await is_video) return 'video'
+		if (await is_video(slide)) return 'video'
 	} catch (e) {
 		console.error(e);
 	}
