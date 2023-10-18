@@ -14,35 +14,36 @@ function is_url(url) {
 }
 
 async function is_image(src) {
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		const node = document.createElement('img');
 		node.fetchPriority = 'high';
 		node.src = src;
 
-		node.onload = () => {
+		node.onload = (e) => {
+			console.log(e)
 			node.remove();
-			resolve('image');
+			resolve(true);
 		};
 
 		node.onerror = (e) => {
 			node.remove();
-			reject(`${src} is not an image.`);
+			resolve(false)
 		};
 	});
 }
 
 function is_video(src) {
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		const node = document.createElement('video');
 		node.src = src;
 
 		function handleSuccess() {
 			node.remove();
-			resolve('video');
+			resolve(true);
 		}
 
 		function handleError() {
-			reject(`${src} is not a video.`);
+			resolve(false);
 		}
 
 		node.onloadedmetadata = handleSuccess;
@@ -52,12 +53,14 @@ function is_video(src) {
 
 async function guess_type(slide) {
 	try {
-		const type = await Promise.any([is_image(slide), is_video(slide)]);
-		return type;
+		if (await is_image(slide)) return true;
+		if (await is_video) return false
 	} catch (e) {
-		console.log(e);
-		return 'text';
+		console.error(e);
 	}
+
+	return 'text'
+
 }
 
 function remove_smart_quotes(blob = '') {

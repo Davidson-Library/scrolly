@@ -2,8 +2,9 @@ const cacheName = 'scrollytellers';
 
 self.addEventListener('fetch', (event) => {
     event.respondWith(caches.open(cacheName).then((cache) => {
+        if (!event.request.url.startsWith('http')) return
         // Go to the network first
-        return fetch(event.request.url).then((fetchedResponse) => {
+        return fetch(event.request).then((fetchedResponse) => {
             cache.put(event.request, fetchedResponse.clone());
             return fetchedResponse;
         }).catch(() => {
