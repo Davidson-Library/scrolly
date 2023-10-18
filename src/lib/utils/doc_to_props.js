@@ -20,7 +20,6 @@ async function is_image(src) {
 		node.src = src;
 
 		node.onload = (e) => {
-			console.log(e)
 			node.remove();
 			resolve(true);
 		};

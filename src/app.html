@@ -3,9 +3,10 @@
 	<head>
 		<script type="module">
 			if ("serviceWorker" in navigator) {
-				navigator.serviceWorker.register(`%sveltekit.assets%/sw.js?v=1`).then(
+				navigator.serviceWorker.register(`%sveltekit.assets%/sw.js`).then(
 					(registration) => {
 						console.log("Offline mode enabled");
+						registration.update();
 					},
 					(error) => {
 						console.error(`Offline mode failed: ${error}`);
