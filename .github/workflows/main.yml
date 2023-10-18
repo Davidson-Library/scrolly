@@ -33,5 +33,6 @@ jobs:
           local-dir: './build/'
           server-dir: './'
           dangerous-clean-slate: true
+          protocol: ftps
       - name: 🖨 Print endpoint
         run: echo $HOST$BASE_PATH >> $GITHUB_STEP_SUMMARY
