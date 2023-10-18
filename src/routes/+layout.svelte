@@ -1,10 +1,12 @@
 <svelte:head>
+	<script src="/rsw.js"></script>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link
 		href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@500;700&family=Ultra&display=swap"
 		rel="stylesheet"
 	/>
+	<link />
 </svelte:head>
 
 <slot />
