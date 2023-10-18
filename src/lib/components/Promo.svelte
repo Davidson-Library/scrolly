@@ -6,7 +6,7 @@
 </script>
 
 <a href={url} target="_blank">
-        <TitleSlide title={props?.title} credit={props?.credit} cover={props?.cover} />
+        <TitleSlide title={props?.title} credit={props?.credit} cover={props?.cover} hover />
         <span>
         <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg>
         </span>
@@ -35,29 +35,11 @@
 	}
 
     a {
-        display: block;
         text-decoration: none;
-        position: relative;
-    }
-
-    a::before {
-        content: '';
-        width: 100%;
-        display: block;
-        height: 100%;
-        background: transparent;
-        position: fixed;
-        top: 0;
-        bottom: 0; left: 0; right: 0;
-        z-index: 1;
-    }
-
-    a::before  {
-       background: rgba(255, 255, 255, 0.9);
     }
 
     a:hover span {
         background: rgba(0, 0, 0, 0.9);
-        border-color: white;
+        border-color: rgba(255,255,255, 1);
     }
 </style>

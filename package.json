@@ -1,6 +1,9 @@
 {
 	"version": "0.0.0",
 	"name": "scrollyteller",
+	"repository": {
+		"url": "https://github.com/Davidson-Library/scrolly"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",

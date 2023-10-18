@@ -2,7 +2,7 @@
 	export let title;
 	export let credit;
 	export let cover;
-	export let hover = true;
+	export let hover = false;
 </script>
 
 <section style:--background={cover ? 'black' : 'white'} class:hover>
@@ -39,7 +39,7 @@
 		all: unset;
 		position: relative;
 		z-index: 1;
-		background: rgb(0, 0, 0, 0.75);
+		background: rgb(0, 0, 0);
 		color: white;
 		padding: 20px 20px;
 		margin: 20px;

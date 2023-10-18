@@ -42,7 +42,7 @@ function is_video(src) {
 			resolve('video');
 		}
 
-		function handleError(e) {
+		function handleError() {
 			reject(`${src} is not a video.`);
 		}
 
