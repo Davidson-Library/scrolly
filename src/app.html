@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<script type="module">
+			if ("serviceWorker" in navigator) {
+				navigator.serviceWorker.register(`%sveltekit.assets%/sw.js`).then(
+					(registration) => {
+						console.log("Offline mode enabled");
+						registration.update();
+					},
+					(error) => {
+						console.error(`Offline mode failed: ${error}`);
+					},
+				);
+			}
+		</script>
 		<meta charset="utf-8" />
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />

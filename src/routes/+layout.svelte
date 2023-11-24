@@ -5,6 +5,7 @@
 		href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@500;700&family=Ultra&display=swap"
 		rel="stylesheet"
 	/>
+	<link />
 </svelte:head>
 
 <slot />

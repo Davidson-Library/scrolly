@@ -15,35 +15,35 @@ function is_url(url) {
 }
 
 async function is_image(src) {
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		const node = document.createElement('img');
 		node.fetchPriority = 'high';
 		node.src = src;
 
-		node.onload = () => {
+		node.onload = (e) => {
 			node.remove();
-			resolve('image');
+			resolve(true);
 		};
 
 		node.onerror = () => {
 			node.remove();
-			reject(`${src} is not an image.`);
+			resolve(false)
 		};
 	});
 }
 
 function is_video(src) {
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		const node = document.createElement('video');
 		node.src = src;
 
 		function handleSuccess() {
 			node.remove();
-			resolve('video');
+			resolve(true);
 		}
 
-		function handleError(e) {
-			reject(`${src} is not a video.`);
+		function handleError() {
+			resolve(false);
 		}
 
 		node.onloadedmetadata = handleSuccess;
@@ -85,17 +85,16 @@ function get_google_media(slide) {
 }
 
 async function guess_type(slide) {
-	try {
 		let type = window.localStorage.getItem(slide);
+		
 		if (!type) {
-			type = await Promise.any([is_video(slide), is_image(slide)]);
-			window.localStorage.setItem(slide, type);
+			if ((await is_image(slide))) type = 'image';
+			else if ((await is_video(slide))) type = 'video';
+			
+			if (type) window.localStorage.setItem(slide, type);
 		}
 
 		return type;
-	} catch (e) {
-		return undefined;
-	}
 }
 
 function remove_smart_quotes(blob = '') {
