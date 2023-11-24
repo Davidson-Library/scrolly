@@ -87,7 +87,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin: 125vh 0;
+		padding: 60vh 0;
 		white-space: pre-wrap;
 	}
 
