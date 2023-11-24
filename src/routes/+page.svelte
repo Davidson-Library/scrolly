@@ -8,6 +8,8 @@
 	const FAQ_LINK =
 		'https://docs.google.com/document/d/e/2PACX-1vQCjUjR49YvH9A_kH32RKwOgbYfuBE8WQC1KZ3L6mKihIoDjy6fIOggErjuGXXSL9FB7jO2RVWboeF5/pub';
 
+	const INSTRUCTIONS_LINK =
+		'https://docs.google.com/document/d/e/2PACX-1vQ8ubzpKmOpkacnY0s3ykzkB1y_ZYBTpl0ynFTLuy-nKHj249jJRntR3J6kK4NCka34Vut6P4NMVLid/pub';
 	let input;
 	let embed_url = 'Loading...';
 	let snippet = 'Loading...';
@@ -45,8 +47,7 @@
 
 	function set_id(id) {
 		embed_url = new URL(get_preview_link(id), window.location.origin).toString();
-		const script_url = new URL(`${base}/iframe.js`, window.location.origin).toString();
-		snippet = get_snippet(embed_url, script_url);
+		snippet = get_snippet(embed_url);
 	}
 </script>
 
@@ -57,70 +58,72 @@
 	/>
 </svelte:head>
 
-<body>
-	<main>
-		<nav>
-			<a href={get_preview_link(TEMPLATE_LINK)} rel="external">Example</a>
-			<a href={FAQ_LINK} target="_blank" rel="external nofollow">F.A.Q.</a>
-			<a href="https://github.com/Davidson-Library/scrolly" target="_blank" rel="external nofollow"
-				>Github</a
-			>
-		</nav>
-		<h1>scrollyteller</h1>
-		<h2>Generate scroll-driven stories with Google Docs</h2>
-		<h3>Instructions</h3>
-		<ol>
-			<li>
-				<p>
-					<a target="blank" rel="external nofollow" href={`${TEMPLATE_LINK}/copy`}>Make a copy </a>
-					of the scrollyteller
-					<a target="blank" rel="external nofollow" href={TEMPLATE_LINK}>template document</a>.
-				</p>
-			</li>
-			<li>
-				<p>Customize the document. Make sure to follow the template.</p>
-			</li>
-			<li>
-				<p>
-					<a
-						target="blank"
-						rel="external nofollow"
-						href="https://support.google.com/a/users/answer/9308870"
-						>Publish your Google Doc to the web</a
-					>, so that anyone can view it.
-				</p>
-			</li>
-			<li>
-				<p>Paste the link to your published Google Doc below.</p>
-				<form on:submit|preventDefault={handle_input}>
-					<input
-						type="text"
-						name="link"
-						class="border padding"
-						placeholder={TEMPLATE_LINK}
-						required
-						bind:this={input}
-						on:change|preventDefault={handle_input}
-					/>
-				</form>
-				{#if validity}
-					<p class="error-message">{validity}</p>
-				{/if}
-			</li>
-			<li>
-				<p>Use this url to link directly to your Scrollyteller.</p>
-				<span class="scrolly-url copy-box padding">
-					<code><a target="_blank" rel="external nofollow" href={embed_url}>{embed_url}</a></code>
-				</span>
-				<p>Or, copy the html code snippet below and embed it into your website code.</p>
-				<code class="copy-box padding">{snippet}</code>
-			</li>
-		</ol>
-	</main>
-	<footer>
-		<p>Made by John-Michael Murphy and Dr. Suzanne Churchill</p>
-	</footer>
-</body>
+<main>
+	<nav>
+		<a href={get_preview_link(TEMPLATE_LINK)} rel="external">Example</a>
+		<a href={INSTRUCTIONS_LINK} rel="external">Instructions</a>
+		<a href={FAQ_LINK} target="_blank" rel="external nofollow">F.A.Q.</a>
+		<a href="https://github.com/Davidson-Library/scrolly" target="_blank" rel="external nofollow"
+			>Github</a
+		>
+	</nav>
+	<h1>ScrollyTeller</h1>
+	<h2>Generate scroll-driven stories with Google Docs</h2>
+	<h3>Make a ScrollyTeller</h3>
+	<ol>
+		<li>
+			<p>
+				<a target="blank" rel="external nofollow" href={`${TEMPLATE_LINK}/copy`}>Make a copy </a> of
+				the ScrollyTeller template document.
+			</p>
+		</li>
+		<li>
+			<p>
+				Follow the <a href={INSTRUCTIONS_LINK}>instructions</a> to customize the template document.
+			</p>
+		</li>
+		<li>
+			<p>
+				<a
+					target="blank"
+					rel="external nofollow"
+					href="https://support.google.com/a/users/answer/9308870"
+					>Publish your Google Doc to the web</a
+				>, so that anyone can view it.
+			</p>
+		</li>
+		<li>
+			<p>Paste the link to your published Google Doc below.</p>
+			<form on:submit|preventDefault={handle_input}>
+				<input
+					type="text"
+					name="link"
+					class="border padding"
+					placeholder={TEMPLATE_LINK}
+					required
+					bind:this={input}
+					on:change|preventDefault={handle_input}
+				/>
+			</form>
+			{#if validity}
+				<p class="error-message">{validity}</p>
+			{/if}
+		</li>
+		<li>
+			<p>Use this url to link directly to your ScrollyTeller.</p>
+			<span class="scrolly-url copy-box padding">
+				<code><a target="_blank" rel="external nofollow" href={embed_url}>{embed_url}</a></code>
+			</span>
+			<p>Or, copy the snippet below and embed a share card into your website code.</p>
+			<code class="copy-box padding">{snippet}</code>
+		</li>
+
+		{@html snippet}
+	</ol>
+</main>
+<footer>
+	<p>Made by John-Michael Murphy and Dr. Suzanne Churchill</p>
+</footer>
 
 <style>
 	:root {
@@ -130,17 +133,13 @@
 		color: var(--sfe-black);
 	}
 
-	body {
-		all: unset;
+	main {
+		display: block;
+		margin: 30px;
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-	}
-
-	main {
-		display: block;
-		margin: 30px;
 	}
 
 	nav {
@@ -155,6 +154,7 @@
 		display: block;
 		font-size: 3rem;
 		font-weight: 500;
+		margin-top: 30px;
 		color: var(--sfe-black10);
 	}
 
@@ -231,7 +231,6 @@
 	input[type='text']::placeholder {
 		color: black;
 		opacity: 0.4;
-		transition: opacity 0.1s;
 	}
 
 	input[type='text']::invalid {

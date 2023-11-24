@@ -1,11 +1,13 @@
 <script>
 	import { onMount } from 'svelte';
 	import Loading from './Loading.svelte';
+	import Html from './Html.svelte';
 
 	export let type;
 	export let slide;
 	export let alt_text = '';
 	export let caption = '';
+	export let visible = false;
 
 	onMount(async () => {
 		type = await type;
@@ -13,51 +15,77 @@
 </script>
 
 <figure>
-	{#if type === 'image'}
-		<img class="scrolly-slide-media" src={slide} alt={alt_text} />
-	{:else if type === 'video'}
-		<!-- svelte-ignore a11y-media-has-caption -->
-		<video class="scrolly-slide-media" src={slide} playsinline controls alt={alt_text} />
-	{:else if type === 'iframe'}
-		<div class="scrolly-slide-iframe">
-			{@html slide}
-		</div>
-	{:else if type === 'text'}
-		<span class="scrolly-slide-text">
-			{@html slide}
-		</span>
-	{:else if type instanceof Promise}
+	{#await slide}
 		<div aria-label="Loading slide" class="scrolly-slide-message">
 			<Loading />
 		</div>
-	{:else}
+	{:then { type, value }}
+		{#if type === 'image'}
+			<!-- <background aria-hidden="true">
+				<img src={value} alt={alt_text} />
+			</background> -->
+			<img class="scrolly-slide-media" src={value} alt={alt_text} />
+		{:else if type === 'video' && visible}
+			<!-- svelte-ignore a11y-media-has-caption -->
+			<video class="scrolly-slide-media" src={value} playsinline controls alt={alt_text} />
+		{:else if type === 'iframe' && visible}
+			<div class="scrolly-slide-iframe">
+				{@html value}
+			</div>
+		{:else if type === 'html' && visible}
+			<Html html={value} />
+		{:else if type === 'text'}
+			<span class="scrolly-slide-text">
+				{@html value}
+			</span>
+		{:else}
+			<div class="scrolly-slide-message">
+				<span>Error: The type "{type}" is not supported.</span>
+			</div>
+		{/if}
+		{#if caption}
+			<figcaption class="scrolly-slide-caption">
+				{@html caption}
+			</figcaption>
+		{/if}
+	{:catch e}
 		<div class="scrolly-slide-message">
-			<span>Error: The type "{type}" is not supported.</span>
+			<span>${e.stack}</span>
 		</div>
-	{/if}
-	{#if caption}
-		<figcaption class="scrolly-slide-caption">
-			{@html caption}
-		</figcaption>
-	{/if}
+	{/await}
 </figure>
 
 <style>
 	figure {
 		all: unset;
 		position: relative;
-		margin-right: 10px;
 		display: flex;
 		height: 100vh;
 		align-items: center;
 		flex-direction: column;
 		justify-content: center;
 		width: 100%;
+		box-sizing: border-box;
+		padding: 20px;
 	}
 
 	figcaption {
 		display: block;
 	}
+
+	/* background {
+		z-index: -1;
+		position: absolute;
+		top: -20px;
+		bottom: -20px;
+		left: -20px;
+		right: -20px;
+	}
+
+	background img {
+		object-fit: fit;
+		filter:blur(15px)
+	} */
 
 	.scrolly-slide-media {
 		width: 100%;
@@ -82,13 +110,6 @@
 
 	.scrolly-slide-text :global(a):hover {
 		text-decoration: none;
-	}
-
-	@media (max-width: 800px) {
-		.scrolly-slide-text {
-			font-size: 16px;
-			line-height: 20px;
-		}
 	}
 
 	.scrolly-slide-iframe {
@@ -120,9 +141,23 @@
 	.scrolly-slide-caption {
 		font-family: var(--scrolly-sans);
 		color: black;
-		padding: 15px;
+		padding: 15px 0;
 		font-size: 14px;
 		line-height: 18px;
 		align-self: flex-start;
+	}
+
+	@media (max-width: 800px) {
+		figure {
+			padding: 0;
+		}
+		.scrolly-slide-text {
+			font-size: 16px;
+			line-height: 20px;
+		}
+
+		.scrolly-slide-caption {
+			padding: 15px;
+		}
 	}
 </style>
