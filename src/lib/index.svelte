@@ -6,7 +6,7 @@
 	import download_doc from '$lib/utils/download_doc.js';
 	import doc_to_props from '$lib/utils/doc_to_props.js';
 	import TitleSlide from './components/TitleSlide.svelte';
-	import Promo from './components/Promo.svelte';
+	import Promo from './components/ShareCard.svelte';
 
 	let props;
 	let error;

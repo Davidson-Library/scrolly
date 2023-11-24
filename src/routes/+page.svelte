@@ -115,9 +115,11 @@
 				<span class="scrolly-url copy-box padding">
 					<code><a target="_blank" rel="external nofollow" href={embed_url}>{embed_url}</a></code>
 				</span>
-				<p>Or, copy the html code snippet below and embed it into your website code.</p>
+				<p>Or, copy the snippet below and embed a share card it into your website code.</p>
 				<code class="copy-box padding">{snippet}</code>
 			</li>
+
+			{@html snippet}
 		</ol>
 	</main>
 	<footer>

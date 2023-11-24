@@ -2,11 +2,12 @@
 	export let title;
 	export let credit;
 	export let cover;
+	export let hover = false;
 </script>
 
-<section class:cover>
+<section class:cover class:hover>
 	{#if cover}
-		<img src={cover} alt="cover" fetchpriority="high" />
+		<img src={cover} alt="cover" fetchpriority="high"  />
 	{/if}
 	{#if title || credit}
 		<div class="title-container">
@@ -29,6 +30,7 @@
 		justify-content: center;
 		z-index: 1;
 		background: black;
+		overflow: hidden;
 		/* box-shadow: 0px 4px 8px hsl(0deg 0% 0% / 25%); */
 	}
 
@@ -56,7 +58,7 @@
 		z-index: 1;
 		color: white;
 		padding: 20px 20px;
-		margin: 40px;
+		margin: 40px 20px;
 		border-radius: 5px;
 	}
 
@@ -84,5 +86,10 @@
 		height: 100%;
 		object-fit: cover;
 		top: 0;
+		transition: transform .3s;
+	}
+
+	section.hover:hover img {
+		transform: scale(1.075);
 	}
 </style>

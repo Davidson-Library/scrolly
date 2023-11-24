@@ -55,7 +55,7 @@
 <style>
 	:root {
 		--scrolly-serif: garamond, serif;
-		--scrolly-sans: helvetica, sans-serif;
+		--scrolly-sans: arial, sans-serif;
 		--scrolly-max-text-width: 600px;
 		--scrolly-link-color: #003cbc;
 	}
