@@ -25,7 +25,7 @@ async function is_image(src) {
 			resolve('image');
 		};
 
-		node.onerror = (e) => {
+		node.onerror = () => {
 			node.remove();
 			reject(`${src} is not an image.`);
 		};
@@ -42,7 +42,7 @@ function is_video(src) {
 			resolve('video');
 		}
 
-		function handleError() {
+		function handleError(e) {
 			reject(`${src} is not a video.`);
 		}
 
@@ -51,111 +51,147 @@ function is_video(src) {
 	});
 }
 
-async function get_tiktok_embed(src) {
-	const url = `https://www.tiktok.com/oembed?url=${src}`
+async function get_tiktok_embed(text) {
+	const url = `https://www.tiktok.com/oembed?url=${text}`;
 	let html = localStorage.getItem(url);
 
 	// use local storage so we aren't pounding the tiktok api.
 	if (!html) {
-		const res =	await fetch(`https://www.tiktok.com/oembed?url=${src}`)
+		const res = await fetch(`https://www.tiktok.com/oembed?url=${text}`);
 		const json = await res.json();
 		html = json.html;
 		localStorage.setItem(url, html);
 	}
 
-	return html
-} 
+	return html;
+}
+
+function get_youtube_embed(slide) {
+	const [, , fileId] = slide.match(YOUTUBE_LINK);
+	let url = `https://www.youtube.com/embed/${fileId}`;
+	const start = new URL(slide).searchParams.get('t');
+	if (start) url += `?start=${start}`;
+	return `<iframe src="${url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+}
+
+function get_vimeo_embed(slide) {
+	const [, fileId] = slide.match(VIMEO_LINK);
+	return `<iframe src="https://player.vimeo.com/video/${fileId}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+}
+
+function get_google_media(slide) {
+	const [, fileId] = slide.match(GDRIVE_LINK);
+	return `https://drive.google.com/uc?id=${fileId}`;
+}
 
 async function guess_type(slide) {
 	try {
 		let type = window.localStorage.getItem(slide);
-		
 		if (!type) {
-		 	type = await Promise.any([is_image(slide), is_video(slide)]);
-			window.localStorage.setItem(slide, type)
+			type = await Promise.any([is_video(slide), is_image(slide)]);
+			window.localStorage.setItem(slide, type);
 		}
 
 		return type;
 	} catch (e) {
-		return 'text';
+		return undefined;
 	}
 }
 
 function remove_smart_quotes(blob = '') {
-	return blob.replace(/[\u2018\u2019]/g, "'") // smart single quotes
+	return blob
+		.replace(/[\u2018\u2019]/g, "'") // smart single quotes
 		.replace(/[\u201C\u201D]/g, '"'); // smart double quotes
 }
 
 function clean_slide(obj) {
 	return Object.fromEntries(
 		Object.entries(obj).map(([key, value]) => {
-			key = key.toLowerCase().trim()
+			key = key.toLowerCase().trim();
 			value = (value || '').trim();
-			value = remove_smart_quotes(value)
-
-			return [key, value]
+			value = remove_smart_quotes(value);
+			return [key, value];
 		})
 	);
 }
 
-function derive_type(type, slide) {
-	if (IS_IMAGE.test(slide)) return 'image';
-	if (IS_VIDEO.test(slide)) return 'video';
-	if (YOUTUBE_LINK.test(slide)) return 'iframe';
-	if (VIMEO_LINK.test(slide)) return 'iframe';
-	if (TIKTOK_LINK.test(slide)) return 'html';
-	if (type) return type;
-	if (!is_url(slide)) return 'text';
-	return undefined;
-}
-
-async function resolve_slide(text) {
-	try {		
-		if (GDRIVE_LINK.test(text)) {
-			const [, fileId] = text.match(GDRIVE_LINK);
-			return `https://drive.google.com/uc?id=${fileId}`;
-		}
-
-		if (YOUTUBE_LINK.test(text)) {
-			const [, , fileId] = text.match(YOUTUBE_LINK);
-			let url = `https://www.youtube.com/embed/${fileId}`
-			const start = new URL(text).searchParams.get('t');
-			if (start) url += `?start=${start}`;
-			return `<iframe src="${url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-		}
-
-		if (VIMEO_LINK.test(text)) {
-			const [, fileId] = text.match(VIMEO_LINK);
-			return `<iframe src="https://player.vimeo.com/video/${fileId}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
-		}
-
-		if (TIKTOK_LINK.test(text)) {
-			const html = await get_tiktok_embed(text);
-			return html;
-		}
-
-	} catch (e) {
-		console.error(e);
+async function resolve_slide(type, slide) {
+	if (type) {
+		return {
+			type,
+			value: slide
+		};
 	}
 
-	return text;
+	if (IS_IMAGE.test(slide)) {
+		return {
+			type: 'image',
+			value: slide
+		};
+	}
+
+	if (IS_VIDEO.test(slide)) {
+		return {
+			type: 'video',
+			value: slide
+		};
+	}
+
+	if (YOUTUBE_LINK.test(slide)) {
+		return {
+			type: 'iframe',
+			value: get_youtube_embed(slide)
+		};
+	}
+
+	if (VIMEO_LINK.test(slide)) {
+		return {
+			type: 'iframe',
+			value: get_vimeo_embed(slide)
+		};
+	}
+
+	if (TIKTOK_LINK.test(slide)) {
+		return {
+			type: 'html',
+			value: await get_tiktok_embed(slide)
+		};
+	}
+
+	if (GDRIVE_LINK.test(slide)) {
+		const value = get_google_media(slide);
+		const type = (await guess_type(value)) || 'text';
+
+		return {
+			type: type,
+			value
+		};
+	}
+
+	if (is_url(slide)) {
+		const type = await guess_type(slide);
+
+		if (type) {
+			return {
+				type,
+				value: slide
+			};
+		}
+	}
+
+	return {
+		type: 'text',
+		value: slide
+	};
 }
 
 export default async function transform_data(doc) {
-	const slides = (doc?.slides || doc?.Slides || []).map((s) => {
-		const { annotation, caption, 'alt-text': alt_text, slide, type } = clean_slide(s);
-		
-		async function parse_slide() {
-			const [t, v] = await Promise.all([
-				derive_type(type, slide) ?? guess_type(slide),
-				resolve_slide(slide)
-			]);
-
-			return { value: v, type: t }
-		}
-
-		return { slide: parse_slide(), annotation, caption, alt_text };
-	}).filter(({ annotation }) => annotation);
+	const slides = (doc?.slides || doc?.Slides || [])
+		.map((s) => {
+			const { annotation, caption, 'alt-text': alt_text, slide, type } = clean_slide(s);
+			return { slide: resolve_slide(type, slide), annotation, caption, alt_text };
+		})
+		.filter(({ annotation }) => annotation);
 
 	if (!slides.length) {
 		throw new Error('No slides found. Make sure you followed the template.');

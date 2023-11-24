@@ -8,7 +8,8 @@
 	const FAQ_LINK =
 		'https://docs.google.com/document/d/e/2PACX-1vQCjUjR49YvH9A_kH32RKwOgbYfuBE8WQC1KZ3L6mKihIoDjy6fIOggErjuGXXSL9FB7jO2RVWboeF5/pub';
 
-	const INSTRUCTIONS_LINK = 'https://docs.google.com/document/d/e/2PACX-1vQ8ubzpKmOpkacnY0s3ykzkB1y_ZYBTpl0ynFTLuy-nKHj249jJRntR3J6kK4NCka34Vut6P4NMVLid/pub'
+	const INSTRUCTIONS_LINK =
+		'https://docs.google.com/document/d/e/2PACX-1vQ8ubzpKmOpkacnY0s3ykzkB1y_ZYBTpl0ynFTLuy-nKHj249jJRntR3J6kK4NCka34Vut6P4NMVLid/pub';
 	let input;
 	let embed_url = 'Loading...';
 	let snippet = 'Loading...';
@@ -73,11 +74,14 @@
 		<ol>
 			<li>
 				<p>
-					<a target="blank" rel="external nofollow" href={`${TEMPLATE_LINK}/copy`}>Make a copy </a> of the ScrollyTeller template document.
+					<a target="blank" rel="external nofollow" href={`${TEMPLATE_LINK}/copy`}>Make a copy </a> of
+					the ScrollyTeller template document.
 				</p>
 			</li>
 			<li>
-				<p>Follow the <a href={INSTRUCTIONS_LINK}>instructions</a> to customize the template document.</p>
+				<p>
+					Follow the <a href={INSTRUCTIONS_LINK}>instructions</a> to customize the template document.
+				</p>
 			</li>
 			<li>
 				<p>

@@ -25,7 +25,6 @@
 </script>
 
 <section bind:this={rootEl}>
-	
 	<ol class="scrolly-annotations">
 		{#each slides as { annotation }, index}
 			<li
@@ -41,11 +40,13 @@
 	<div class="scrolly-slides-outer">
 		<ol class="scrolly-slides">
 			{#each slides as { type, slide, alt_text, caption }, index}
-				{#if index === currIndex}
-					<li class={`scrolly-slide scrolly-slide-${index}`}>
-						<Slide {type} {slide} {alt_text} {caption} />
-					</li>
-				{/if}
+				{@const visible = index === currIndex}
+				<li
+					class={`scrolly-slide scrolly-slide-${index}`}
+					style:display={visible ? 'block' : 'none'}
+				>
+					<Slide {type} {slide} {alt_text} {caption} {visible} />
+				</li>
 			{/each}
 		</ol>
 	</div>

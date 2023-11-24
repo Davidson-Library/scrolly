@@ -2,22 +2,19 @@
 	export let title;
 	export let credit;
 	export let cover;
-	export let hover = false;
 </script>
 
-<section style:--background={cover ? 'black' : 'white'} class:hover>
-	{#if title || credit}
-	<div>
-		<h1>{@html title}</h1>
-		<hr />
-		<p>{@html credit}</p>
-	</div>
-	{/if}
-	{#if hover}
-		<aside />
-	{/if}
+<section class:cover>
 	{#if cover}
-		 <img src={cover} alt="cover" fetchpriority="high" />
+		<img src={cover} alt="cover" fetchpriority="high" />
+	{/if}
+	{#if title || credit}
+		<div class="title-container">
+			<div class="title">
+				<h1>{@html title}</h1>
+				<p>{@html credit}</p>
+			</div>
+		</div>
 	{/if}
 </section>
 
@@ -30,21 +27,37 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		box-shadow: 0px 4px 8px hsl(0deg 0% 0% / 25%);
 		z-index: 1;
-		background: var(--background);
+		background: black;
+		/* box-shadow: 0px 4px 8px hsl(0deg 0% 0% / 25%); */
 	}
 
-	div {
-		all: unset;
+	.title-container {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.cover .title-container {
+		align-items: flex-end;
+		justify-content: flex-start;
+		background: linear-gradient(transparent, transparent, black);
+	}
+
+	.title {
 		position: relative;
 		z-index: 1;
-		background: rgb(0, 0, 0);
 		color: white;
 		padding: 20px 20px;
-		margin: 20px;
+		margin: 40px;
 		border-radius: 5px;
-		box-shadow: 2px 2px 3px rgb(0 0 0 / 40%);
 	}
 
 	h1 {
@@ -55,15 +68,6 @@
 		line-height: 50px;
 	}
 
-	hr {
-		all: unset;
-		display: block;
-		box-sizing: border-box;
-		border-bottom: 1px solid white;
-		margin: 20px 0;
-		width: 100px;
-	}
-
 	p {
 		all: unset;
 		position: relative;
@@ -71,7 +75,7 @@
 		display: block;
 		font-family: var(--scrolly-sans);
 		font-size: 18px;
-		line-height: 24px;
+		line-height: 2;
 	}
 
 	img {
@@ -80,24 +84,5 @@
 		height: 100%;
 		object-fit: cover;
 		top: 0;
-	}
-
-	.hover::before {
-		content: '';
-        width: 100%;
-        display: block;
-        height: 100%;
-        background: transparent;
-        position: fixed;
-        top: 0;
-        bottom: 0; 
-		left: 0; 
-		right: 0;
-        z-index: 1;
-		transition: all .3s ease-in-out;
-	}
-
-	.hover:hover::before {
-		background: rgb(255 255, 255, 0.4);
 	}
 </style>

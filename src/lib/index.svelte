@@ -46,7 +46,6 @@
 			{/if}
 		</main>
 	{/if}
-
 </div>
 
 <style>
@@ -54,4 +53,7 @@
 		position: relative;
 	}
 
+	:global(html) {
+		background: black;
+	}
 </style>
