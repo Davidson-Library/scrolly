@@ -9,11 +9,12 @@
 	const intersectionOptions = {
 		root: rootEl,
 		rootMargin: '0px',
-		threshold: 0.1
+		threshold: [.1, 0.25]
 	};
 
 	const observer = new IntersectionObserver((entries) => {
 		const [entry] = entries;
+		console.log(entries)
 		if (entry.isIntersecting) {
 			currIndex = +entry.target.dataset.index;
 		}
@@ -27,10 +28,7 @@
 <section bind:this={rootEl}>
 	<ol class="scrolly-annotations">
 		{#each slides as { annotation }, index}
-			<li
-				class="scrolly-annotation"
-				style="padding-bottom: {slides.length - 1 === index ? 100 : 0}vh"
-			>
+			<li class="scrolly-annotation">
 				<span class="scrolly-annotation-text" use:observe data-index={index}>
 					{@html annotation}
 				</span>
@@ -89,8 +87,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		min-height: 100vh;
-		margin: auto;
+		margin: 125vh 0;
 		white-space: pre-wrap;
 	}
 

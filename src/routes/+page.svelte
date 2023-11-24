@@ -58,7 +58,6 @@
 	/>
 </svelte:head>
 
-<body>
 	<main>
 		<nav>
 			<a href={get_preview_link(TEMPLATE_LINK)} rel="external">Example</a>
@@ -115,7 +114,7 @@
 				<span class="scrolly-url copy-box padding">
 					<code><a target="_blank" rel="external nofollow" href={embed_url}>{embed_url}</a></code>
 				</span>
-				<p>Or, copy the snippet below and embed a share card it into your website code.</p>
+				<p>Or, copy the snippet below and embed a share card into your website code.</p>
 				<code class="copy-box padding">{snippet}</code>
 			</li>
 
@@ -125,7 +124,6 @@
 	<footer>
 		<p>Made by John-Michael Murphy and Dr. Suzanne Churchill</p>
 	</footer>
-</body>
 
 <style>
 	:root {
@@ -135,17 +133,13 @@
 		color: var(--sfe-black);
 	}
 
-	body {
-		all: unset;
-		min-height: 100vh;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	}
-
 	main {
 		display: block;
 		margin: 30px;
+			min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 	}
 
 	nav {
