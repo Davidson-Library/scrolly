@@ -9,12 +9,12 @@
 	const intersectionOptions = {
 		root: rootEl,
 		rootMargin: '0px',
-		threshold: [.1, 0.25]
+		threshold: [0.1, 0.25]
 	};
 
 	const observer = new IntersectionObserver((entries) => {
 		const [entry] = entries;
-		console.log(entries)
+		console.log(entries);
 		if (entry.isIntersecting) {
 			currIndex = +entry.target.dataset.index;
 		}

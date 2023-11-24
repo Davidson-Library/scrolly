@@ -58,72 +58,72 @@
 	/>
 </svelte:head>
 
-	<main>
-		<nav>
-			<a href={get_preview_link(TEMPLATE_LINK)} rel="external">Example</a>
-			<a href={INSTRUCTIONS_LINK} rel="external">Instructions</a>
-			<a href={FAQ_LINK} target="_blank" rel="external nofollow">F.A.Q.</a>
-			<a href="https://github.com/Davidson-Library/scrolly" target="_blank" rel="external nofollow"
-				>Github</a
-			>
-		</nav>
-		<h1>ScrollyTeller</h1>
-		<h2>Generate scroll-driven stories with Google Docs</h2>
-		<h3>Make a ScrollyTeller</h3>
-		<ol>
-			<li>
-				<p>
-					<a target="blank" rel="external nofollow" href={`${TEMPLATE_LINK}/copy`}>Make a copy </a> of
-					the ScrollyTeller template document.
-				</p>
-			</li>
-			<li>
-				<p>
-					Follow the <a href={INSTRUCTIONS_LINK}>instructions</a> to customize the template document.
-				</p>
-			</li>
-			<li>
-				<p>
-					<a
-						target="blank"
-						rel="external nofollow"
-						href="https://support.google.com/a/users/answer/9308870"
-						>Publish your Google Doc to the web</a
-					>, so that anyone can view it.
-				</p>
-			</li>
-			<li>
-				<p>Paste the link to your published Google Doc below.</p>
-				<form on:submit|preventDefault={handle_input}>
-					<input
-						type="text"
-						name="link"
-						class="border padding"
-						placeholder={TEMPLATE_LINK}
-						required
-						bind:this={input}
-						on:change|preventDefault={handle_input}
-					/>
-				</form>
-				{#if validity}
-					<p class="error-message">{validity}</p>
-				{/if}
-			</li>
-			<li>
-				<p>Use this url to link directly to your ScrollyTeller.</p>
-				<span class="scrolly-url copy-box padding">
-					<code><a target="_blank" rel="external nofollow" href={embed_url}>{embed_url}</a></code>
-				</span>
-				<p>Or, copy the snippet below and embed a share card into your website code.</p>
-				<code class="copy-box padding">{snippet}</code>
-			</li>
+<main>
+	<nav>
+		<a href={get_preview_link(TEMPLATE_LINK)} rel="external">Example</a>
+		<a href={INSTRUCTIONS_LINK} rel="external">Instructions</a>
+		<a href={FAQ_LINK} target="_blank" rel="external nofollow">F.A.Q.</a>
+		<a href="https://github.com/Davidson-Library/scrolly" target="_blank" rel="external nofollow"
+			>Github</a
+		>
+	</nav>
+	<h1>ScrollyTeller</h1>
+	<h2>Generate scroll-driven stories with Google Docs</h2>
+	<h3>Make a ScrollyTeller</h3>
+	<ol>
+		<li>
+			<p>
+				<a target="blank" rel="external nofollow" href={`${TEMPLATE_LINK}/copy`}>Make a copy </a> of
+				the ScrollyTeller template document.
+			</p>
+		</li>
+		<li>
+			<p>
+				Follow the <a href={INSTRUCTIONS_LINK}>instructions</a> to customize the template document.
+			</p>
+		</li>
+		<li>
+			<p>
+				<a
+					target="blank"
+					rel="external nofollow"
+					href="https://support.google.com/a/users/answer/9308870"
+					>Publish your Google Doc to the web</a
+				>, so that anyone can view it.
+			</p>
+		</li>
+		<li>
+			<p>Paste the link to your published Google Doc below.</p>
+			<form on:submit|preventDefault={handle_input}>
+				<input
+					type="text"
+					name="link"
+					class="border padding"
+					placeholder={TEMPLATE_LINK}
+					required
+					bind:this={input}
+					on:change|preventDefault={handle_input}
+				/>
+			</form>
+			{#if validity}
+				<p class="error-message">{validity}</p>
+			{/if}
+		</li>
+		<li>
+			<p>Use this url to link directly to your ScrollyTeller.</p>
+			<span class="scrolly-url copy-box padding">
+				<code><a target="_blank" rel="external nofollow" href={embed_url}>{embed_url}</a></code>
+			</span>
+			<p>Or, copy the snippet below and embed a share card into your website code.</p>
+			<code class="copy-box padding">{snippet}</code>
+		</li>
 
-			{@html snippet}
-		</ol>
-	</main>
-	<footer>
-		<p>Made by John-Michael Murphy and Dr. Suzanne Churchill</p>
-	</footer>
+		{@html snippet}
+	</ol>
+</main>
+<footer>
+	<p>Made by John-Michael Murphy and Dr. Suzanne Churchill</p>
+</footer>
 
 <style>
 	:root {
@@ -136,7 +136,7 @@
 	main {
 		display: block;
 		margin: 30px;
-			min-height: 100vh;
+		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;

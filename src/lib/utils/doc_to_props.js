@@ -27,7 +27,7 @@ async function is_image(src) {
 
 		node.onerror = () => {
 			node.remove();
-			resolve(false)
+			resolve(false);
 		};
 	});
 }
@@ -85,16 +85,16 @@ function get_google_media(slide) {
 }
 
 async function guess_type(slide) {
-		let type = window.localStorage.getItem(slide);
-		
-		if (!type) {
-			if ((await is_image(slide))) type = 'image';
-			else if ((await is_video(slide))) type = 'video';
-			
-			if (type) window.localStorage.setItem(slide, type);
-		}
+	let type = window.localStorage.getItem(slide);
 
-		return type;
+	if (!type) {
+		if (await is_image(slide)) type = 'image';
+		else if (await is_video(slide)) type = 'video';
+
+		if (type) window.localStorage.setItem(slide, type);
+	}
+
+	return type;
 }
 
 function remove_smart_quotes(blob = '') {

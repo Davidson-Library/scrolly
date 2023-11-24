@@ -7,7 +7,7 @@
 
 <section class:cover class:hover>
 	{#if cover}
-		<img src={cover} alt="cover" fetchpriority="high"  />
+		<img src={cover} alt="cover" fetchpriority="high" />
 	{/if}
 	{#if title || credit}
 		<div class="title-container">
@@ -86,7 +86,7 @@
 		height: 100%;
 		object-fit: cover;
 		top: 0;
-		transition: transform .3s;
+		transition: transform 0.3s;
 	}
 
 	section.hover:hover img {
