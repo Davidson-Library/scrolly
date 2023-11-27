@@ -30,6 +30,7 @@
 	section {
 		position: fixed;
 		top: 0;
+		color: white;
 		right: 0;
 		bottom: 0;
 		left: 0;
@@ -39,6 +40,7 @@
 		overflow: hidden;
 		font-size: 16px;
 		font-family: var(--scrolly-serif);
+		z-index: 1;
 	}
 
 	span {

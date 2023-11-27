@@ -14,7 +14,7 @@
 
 	const observer = new IntersectionObserver((entries) => {
 		const [entry] = entries;
-		console.log(entries);
+
 		if (entry.isIntersecting) {
 			currIndex = +entry.target.dataset.index;
 		}

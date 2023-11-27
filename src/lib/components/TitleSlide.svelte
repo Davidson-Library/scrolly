@@ -7,7 +7,9 @@
 
 <section class:cover class:hover>
 	{#if cover}
-		<img src={cover} alt="cover" fetchpriority="high" />
+		{#await cover then { value }}
+			<img src={value} alt="cover" fetchpriority="high" />
+		{/await}
 	{/if}
 	{#if title || credit}
 		<div class="title-container">
