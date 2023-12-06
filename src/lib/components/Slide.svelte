@@ -20,7 +20,11 @@
 			<Loading />
 		</div>
 	{:then { type, value }}
-		{#if type === 'image'}
+		{#if !value}
+			<div class="scrolly-slide-message">
+				<span>no slide</span>
+			</div>
+		{:else if type === 'image'}
 			<!-- <background aria-hidden="true">
 				<img src={value} alt={alt_text} />
 			</background> -->

@@ -1,34 +1,5 @@
-import archieml from 'archieml';
-
-function parse_html(html) {
-	// handle white space entities
-	html = html.replace(/&nbsp;/g, ' ');
-
-	const node = new DOMParser().parseFromString(html, 'text/html');
-	// const node = dom.querySelector("div#contents > div");
-
-	// remove all comments
-	node.querySelectorAll('sup').forEach((el) => {
-		const a = el.querySelector('a');
-		if (a.getAttribute('href')?.startsWith('#cmnt')) {
-			el.remove();
-		}
-	});
-
-	// remove all bookmark links
-	node.querySelectorAll('a').forEach((el) => {
-		if (!el.getAttribute('href')) el.remove();
-	});
-
-	const text = [];
-
-	node.querySelectorAll('p').forEach((el) => text.push(el.innerText));
-
-	const aml = text.join('\n');
-
-	return archieml.load(aml);
-}
-
+import { parse_doc } from './parse_doc.js';
+import { parse_doc_legacy } from './parse_doc_legacy.js';
 const GOOGLE_FILE_ID = /[-\w]{25,}(?!.*[-\w]{25,})/is;
 const PUBLISH_ID = /(?:\/)([-\w]*)(?:\/pub)$/is;
 
@@ -67,7 +38,14 @@ export default async function download_doc(link) {
 		);
 
 	try {
-		return parse_html(html);
+		try {
+			const legacy_doc = parse_doc_legacy(html);
+			if (legacy_doc.slides) return legacy_doc;
+		} catch {
+			// do nothing.
+		}
+
+		return parse_doc(html);
 	} catch (e) {
 		console.error(e);
 		throw new Error(`Encountered an error when parsing the Google Doc: ${e.message}`);

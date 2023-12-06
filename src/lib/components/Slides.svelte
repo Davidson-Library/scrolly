@@ -103,6 +103,8 @@
 		line-height: 26px;
 		font-weight: 300;
 		margin: 20px;
+		word-wrap: break-word;
+		overflow: hidden;
 	}
 
 	@media (max-width: 800px) {
