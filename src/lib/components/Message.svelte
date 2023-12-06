@@ -30,7 +30,7 @@
 	section {
 		position: fixed;
 		top: 0;
-		color: white;
+		color: black;
 		right: 0;
 		bottom: 0;
 		left: 0;

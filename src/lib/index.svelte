@@ -32,8 +32,8 @@
 		<Promo {props} {url} />
 	{:else}
 		<main>
-			<TitleSlide title={props?.title} credit={props?.credit} cover={props?.cover} />
 			{#if props?.slides?.length}
+				<TitleSlide title={props?.title} credit={props?.credit} cover={props?.cover} />
 				<Slides {...props} />
 			{:else if error}
 				<Message>
@@ -51,9 +51,5 @@
 <style>
 	main {
 		position: relative;
-	}
-
-	:global(html) {
-		background: black;
 	}
 </style>
