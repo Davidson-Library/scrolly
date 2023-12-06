@@ -198,7 +198,7 @@ export default async function transform_data(doc) {
 
 	let title = doc?.title || '';
 	let credit = doc?.credit || '';
-	let cover = doc?.cover ? resolve_slide(null, doc?.cover) : '';
+	let cover = doc?.cover ? resolve_slide(null, doc?.cover) : { value: '' };
 
 	return { title, credit, cover, slides };
 }

@@ -3,19 +3,22 @@
 	export let url;
 </script>
 
-<a href={url} target="_blank" rel="noreferrer" class:cover={props?.cover}>
-	<img src={props?.cover} alt="cover" fetchpriority="high" />
+{#if props}
+<a href={url} target="_blank" rel="noreferrer" >
+	{#await props?.cover then { value }}
+		<img src={value} alt="cover" fetchpriority="high" />
+	{/await}
 	<span>
 		<h1>{props?.title}</h1>
 		<h2>{props?.credit}</h2>
 	</span>
-	<svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40">
-		<path
-			d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"
-		/>
-	</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40" >
+			<path
+				d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"
+			/>
+		</svg>
 </a>
-
+{/if}
 <style>
 	a {
 		position: fixed;
@@ -23,7 +26,7 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
-		background: #f7f7f7;
+		background: #333;
 	}
 
 	svg {
@@ -32,10 +35,6 @@
 		right: 17.5px;
 		z-index: 1;
 		pointer-events: none;
-		fill: #333;
-	}
-
-	.cover svg {
 		fill: white;
 	}
 
@@ -55,13 +54,12 @@
 		object-fit: cover;
 		width: 100%;
 		height: 100%;
-		transition: transform 0.2s;
 	}
 
-	a:hover img,
-	a:active img,
-	a:focus img {
-		transform: scale(1.025);
+	a:hover h1,
+	a:active h1,
+	a:focus h1 {
+		text-decoration: underline;
 	}
 
 	h1,

@@ -20,7 +20,6 @@
 			const id = url.searchParams.get('id');
 			const doc = await download_doc(id);
 			props = await doc_to_props(doc);
-			console.log(props);
 		} catch (e) {
 			console.error(e);
 			error = e.message;
