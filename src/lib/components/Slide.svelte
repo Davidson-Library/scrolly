@@ -25,10 +25,13 @@
 				<span>no slide</span>
 			</div>
 		{:else if type === 'image'}
-			<!-- <background aria-hidden="true">
-				<img src={value} alt={alt_text} />
-			</background> -->
-			<img class="scrolly-slide-media" src={value} alt={alt_text} referrerpolicy="no-referrer" />
+			<img
+				class="scrolly-slide-media"
+				src={value}
+				alt={alt_text}
+				referrerpolicy="no-referrer"
+				loading="lazy"
+			/>
 		{:else if type === 'video' && visible}
 			<!-- svelte-ignore a11y-media-has-caption -->
 			<video class="scrolly-slide-media" src={value} playsinline controls alt={alt_text} />

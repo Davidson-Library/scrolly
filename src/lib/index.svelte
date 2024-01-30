@@ -33,7 +33,12 @@
 	{:else}
 		<main>
 			{#if props?.slides?.length}
-				<TitleSlide title={props?.title} credit={props?.credit} cover={props?.cover} />
+				<TitleSlide
+					title={props?.title}
+					credit={props?.credit}
+					cover={props?.cover}
+					alt_text={props?.alt_text}
+				/>
 				<Slides {...props} />
 			{:else if error}
 				<Message>

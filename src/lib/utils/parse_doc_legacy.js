@@ -5,7 +5,6 @@ export function parse_doc_legacy(html) {
 	html = html.replace(/&nbsp;/g, ' ');
 
 	const node = new DOMParser().parseFromString(html, 'text/html');
-	// const node = dom.querySelector("div#contents > div");
 
 	// remove all comments
 	node.querySelectorAll('sup').forEach((el) => {

@@ -1,8 +1,8 @@
 export const IS_IMAGE = /^\S+\.gif|jpe?g|tiff?|png|webp|bmp$/is;
 export const IS_VIDEO = /^\S+\.gif|jpe?g|tiff?|png|webp|bmp$/is;
 export const GDRIVE_LINK = /^https:\/\/drive\.google\.com\/file\/d\/([-\w]{25,}(?!.*[-\w]{25,}))/is;
-export const YOUTUBE_LINK = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/is;
-export const VIMEO_LINK = /^.*vimeo\.com\/([^#\&\?]*).*/is;
+export const YOUTUBE_LINK = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/is;
+export const VIMEO_LINK = /^.*vimeo\.com\/([^#&?]*).*/is;
 export const TIKTOK_LINK = /^.*tiktok\.com\/(.*)\/video\/.*/is;
 
 function is_url(url) {
@@ -196,9 +196,10 @@ export default async function transform_data(doc) {
 		throw new Error('No slides found. Make sure you followed the template.');
 	}
 
-	let title = doc?.title || '';
-	let credit = doc?.credit || '';
-	let cover = doc?.cover ? resolve_slide(null, doc?.cover) : { value: '' };
+	const title = doc?.title || '';
+	const credit = doc?.credit || '';
+	const alt_text = doc?.['alt-text'] || '';
+	const cover = doc?.cover ? resolve_slide(null, doc?.cover) : { value: '' };
 
-	return { title, credit, cover, slides };
+	return { title, credit, alt_text, cover, slides };
 }

@@ -1,7 +1,6 @@
 export function parse_doc(html) {
 	// handle white space entities
 	html = html.replace(/&nbsp;/g, ' ');
-
 	const node = new DOMParser().parseFromString(html, 'text/html');
 	// const node = dom.querySelector("div#contents > div");
 
@@ -18,6 +17,14 @@ export function parse_doc(html) {
 		if (!el.getAttribute('href')) el.remove();
 	});
 
+	// convert all images to just their urls
+	node.querySelectorAll('img').forEach((el) => {
+		console.log(el);
+		const span = node.createElement('span');
+		span.innerHTML = el.getAttribute('src');
+		el.replaceWith(span);
+	});
+
 	const ctx = [{}];
 
 	const keys = ['title', 'credit', 'cover', 'alt-text', 'caption', 'slide', 'annotation', 'type'];
@@ -30,7 +37,10 @@ export function parse_doc(html) {
 
 			if (!line) return;
 
-			const maybekey = line?.toLowerCase()?.match(/\w+/g)?.join?.('');
+			const maybekey = line
+				?.toLowerCase()
+				?.match(/(\w|-)+/g)
+				?.join?.('');
 
 			if (keys.includes(maybekey)) {
 				key = maybekey;

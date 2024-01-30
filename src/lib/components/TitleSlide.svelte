@@ -3,12 +3,13 @@
 	export let credit;
 	export let cover;
 	export let hover = false;
+	export let alt_text = '';
 </script>
 
 <section class:cover class:hover>
 	{#if cover}
 		{#await cover then { value }}
-			<img src={value} alt="cover" fetchpriority="high" />
+			<img src={value} alt={alt_text} fetchpriority="high" referrerpolicy="no-referrer" />
 		{/await}
 	{/if}
 	{#if title || credit}
