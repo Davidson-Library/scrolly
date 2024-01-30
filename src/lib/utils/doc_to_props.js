@@ -81,7 +81,7 @@ function get_vimeo_embed(slide) {
 
 function get_google_media(slide) {
 	const [, fileId] = slide.match(GDRIVE_LINK);
-	return `https://drive.google.com/uc?id=${fileId}`;
+	return `https://lh3.googleusercontent.com/d/${fileId}`;
 }
 
 async function guess_type(slide) {
