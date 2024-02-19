@@ -37,6 +37,7 @@
 					title={props?.title}
 					credit={props?.credit}
 					cover={props?.cover}
+					caption={props?.caption}
 					alt_text={props?.alt_text}
 				/>
 				<Slides {...props} />

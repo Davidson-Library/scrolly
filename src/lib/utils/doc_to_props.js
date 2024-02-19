@@ -88,7 +88,8 @@ async function guess_type(slide) {
 	let type = window.localStorage.getItem(slide);
 
 	if (!type) {
-		if (await is_image(slide)) type = 'image';
+		if (slide?.startsWith('https://lh3.googleusercontent.com/d/')) type = 'image';
+		else if (await is_image(slide)) type = 'image';
 		else if (await is_video(slide)) type = 'video';
 
 		if (type) window.localStorage.setItem(slide, type);
@@ -199,7 +200,8 @@ export default async function transform_data(doc) {
 	const title = doc?.title || '';
 	const credit = doc?.credit || '';
 	const alt_text = doc?.['alt-text'] || '';
+	const caption = doc?.caption || '';
 	const cover = doc?.cover ? resolve_slide(null, doc?.cover) : { value: '' };
 
-	return { title, credit, alt_text, cover, slides };
+	return { title, caption, credit, alt_text, cover, slides };
 }

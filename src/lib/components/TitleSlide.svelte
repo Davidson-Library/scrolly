@@ -2,6 +2,7 @@
 	export let title;
 	export let credit;
 	export let cover;
+	export let caption = '';
 	export let hover = false;
 	export let alt_text = '';
 </script>
@@ -17,6 +18,7 @@
 			<div class="title">
 				<h1>{@html title}</h1>
 				<p>{@html credit}</p>
+				<p class="caption">{@html caption}</p>
 			</div>
 		</div>
 	{/if}
@@ -81,6 +83,13 @@
 		font-family: var(--scrolly-sans);
 		font-size: 18px;
 		line-height: 2;
+	}
+
+	.caption {
+		font-family: var(--scrolly-sans);
+		padding: 10px 0px;
+		font-size: 12px;
+		line-height: 14px;
 	}
 
 	img {

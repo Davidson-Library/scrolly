@@ -30,7 +30,6 @@
 				src={value}
 				alt={alt_text}
 				referrerpolicy="no-referrer"
-				loading="lazy"
 			/>
 		{:else if type === 'video' && visible}
 			<!-- svelte-ignore a11y-media-has-caption -->
