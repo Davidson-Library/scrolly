@@ -6,11 +6,14 @@
 {#if props}
 	<a href={url} target="_blank" rel="noreferrer">
 		{#await props?.cover then { value }}
-			<img src={value} alt="cover" fetchpriority="high" />
+			{#if value}
+				<img src={value} alt="cover" fetchpriority="high" />
+			{/if}
 		{/await}
+
 		<span>
-			<h1>{props?.title}</h1>
-			<h2>{props?.credit}</h2>
+			<h1>{@html props?.title}</h1>
+			<h2>{@html props?.credit}</h2>
 		</span>
 		<svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40">
 			<path

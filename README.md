@@ -14,7 +14,6 @@ First, make sure you have NodeJS 18+ installed on your machine. (This is easily 
 
 Everytime a change is pushed to the project's `main` git branch, it triggers a [github action](./.github/workflows/main.yml), which deploys the site's static build output to an FTP server maintained by Davidson College and @jacobheil. Those files are then exposed at [https://digitallearning.davidson.edu/john-michael-murphy/ScrollyTeller/](https://digitalprojects.davidson.edu/scrollytellerdh/).
 
-
 ## Local Dev Examples
 
 http://localhost:5173/v1/embed?id=https://docs.google.com/document/d/e/2PACX-1vRqniFiiapp4jF7Xp69sF5E3nsKqFC-rT0GDIjvTNIDWYJVpsRBCLQjc7vsj-_EHHNGGUx09uBqIorR/pub

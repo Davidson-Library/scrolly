@@ -10,7 +10,9 @@
 <section class:cover class:hover>
 	{#if cover}
 		{#await cover then { value }}
-			<img src={value} alt={alt_text} fetchpriority="high" referrerpolicy="no-referrer" />
+			{#if value}
+				<img src={value} alt={alt_text} fetchpriority="high" referrerpolicy="no-referrer" />
+			{/if}
 		{/await}
 	{/if}
 	{#if title || credit}
