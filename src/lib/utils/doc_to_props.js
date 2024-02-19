@@ -1,6 +1,6 @@
 export const IS_IMAGE = /^\S+\.gif|jpe?g|tiff?|png|webp|bmp$/is;
 export const IS_VIDEO = /^\S+\.gif|jpe?g|tiff?|png|webp|bmp$/is;
-export const GDRIVE_LINK = /.*[^-\w]([-\w]{25,})[^-\w]?.*/is;
+export const GDRIVE_LINK = /drive.google.com(?:.*)[^-\w]([-\w]{25,})[^-\w]?.*/is;
 export const YOUTUBE_LINK = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/is;
 export const VIMEO_LINK = /^.*vimeo\.com\/([^#&?]*).*/is;
 export const TIKTOK_LINK = /^.*tiktok\.com\/(.*)\/video\/.*/is;
