@@ -1,4 +1,5 @@
 <script>
+	import { fade } from 'svelte/transition';
 	import Slide from './Slide.svelte';
 
 	export let slides;
@@ -39,12 +40,15 @@
 		<ol class="scrolly-slides">
 			{#each slides as { type, slide, alt_text, caption }, index}
 				{@const visible = index === currIndex}
-				<li
-					class={`scrolly-slide scrolly-slide-${index}`}
-					style:display={visible ? 'block' : 'none'}
-				>
-					<Slide {type} {slide} {alt_text} {caption} {visible} />
-				</li>
+				{#if visible}
+					<li
+						transition:fade={{ delay: 0, duration: 200 }}
+						class={`scrolly-slide scrolly-slide-${index}`}
+						style:display={visible ? 'block' : 'none'}
+					>
+						<Slide {type} {slide} {alt_text} {caption} {visible} />
+					</li>
+				{/if}
 			{/each}
 		</ol>
 	</div>
