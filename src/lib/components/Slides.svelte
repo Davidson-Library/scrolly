@@ -28,10 +28,15 @@
 
 <section bind:this={rootEl}>
 	<ol class="scrolly-annotations">
-		{#each slides as { annotation }, index}
+		{#each slides as { annotation, annotation_caption }, index}
 			<li class="scrolly-annotation">
 				<span class="scrolly-annotation-text" use:observe data-index={index}>
 					{@html annotation}
+					{#if annotation_caption}
+						<span class="scrolly-annotation-caption">
+							{@html annotation_caption}
+						</span>
+					{/if}
 				</span>
 			</li>
 		{/each}
@@ -39,14 +44,11 @@
 	<div class="scrolly-slides-outer">
 		<ol class="scrolly-slides">
 			{#each slides as { type, slide, alt_text, caption }, index}
-				{@const visible = index === currIndex}
-				{#if visible}
-					<li
-						transition:fade={{ delay: 0, duration: 200 }}
-						class={`scrolly-slide scrolly-slide-${index}`}
-						style:display={visible ? 'block' : 'none'}
-					>
-						<Slide {type} {slide} {alt_text} {caption} {visible} />
+				{@const current = index === currIndex}
+				{@const next = index === currIndex + 1}
+				{#if current || next}
+					<li class={`scrolly-slide scrolly-slide-${index}`} style:opacity={current ? 1 : 0}>
+						<Slide {type} {slide} {alt_text} {caption} />
 					</li>
 				{/if}
 			{/each}
@@ -143,6 +145,25 @@
 		text-decoration: none;
 	}
 
+	.scrolly-annotation-caption {
+		border-top: 1px solid white;
+		font-size: 16px;
+		margin-top: 40px;
+		padding-top: 15px;
+		color: white;
+		text-align: left;
+		display: block;
+		line-height: 1.4;
+	}
+
+	@media (max-width: 800px) {
+		.scrolly-annotation-caption {
+			margin-top: 30px;
+			padding-top: 10px;
+			font-size: 14px;
+		}
+	}
+
 	.scrolly-slides-outer {
 		height: 100%;
 		position: relative;
@@ -170,5 +191,7 @@
 		right: 0;
 		left: 0;
 		overflow: hidden;
+		opacity: 0;
+		transition: opacity 0.5s;
 	}
 </style>

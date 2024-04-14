@@ -7,7 +7,6 @@
 	export let slide;
 	export let alt_text = '';
 	export let caption = '';
-	export let visible = false;
 
 	onMount(async () => {
 		type = await type;
@@ -26,14 +25,14 @@
 			</div>
 		{:else if type === 'image'}
 			<img class="scrolly-slide-media" src={value} alt={alt_text} referrerpolicy="no-referrer" />
-		{:else if type === 'video' && visible}
+		{:else if type === 'video'}
 			<!-- svelte-ignore a11y-media-has-caption -->
 			<video class="scrolly-slide-media" src={value} playsinline controls alt={alt_text} />
-		{:else if type === 'iframe' && visible}
+		{:else if type === 'iframe'}
 			<div class="scrolly-slide-iframe">
 				{@html value}
 			</div>
-		{:else if type === 'html' && visible}
+		{:else if type === 'html'}
 			<Html html={value} />
 		{:else if type === 'text'}
 			<span class="scrolly-slide-text">
