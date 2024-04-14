@@ -188,8 +188,21 @@ async function resolve_slide(type, slide) {
 export default async function transform_data(doc) {
 	const slides = (doc?.slides || doc?.Slides || [])
 		.map((s) => {
-			const { annotation, caption, 'alt-text': alt_text, slide, type, 'annotation-caption': annotation_caption } = clean_slide(s);
-			return { slide: resolve_slide(type, slide), annotation, annotation_caption, caption, alt_text };
+			const {
+				annotation,
+				caption,
+				'alt-text': alt_text,
+				slide,
+				type,
+				'annotation-caption': annotation_caption
+			} = clean_slide(s);
+			return {
+				slide: resolve_slide(type, slide),
+				annotation,
+				annotation_caption,
+				caption,
+				alt_text
+			};
 		})
 		.filter(({ annotation }) => annotation);
 

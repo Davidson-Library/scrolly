@@ -27,7 +27,17 @@ export function parse_doc(html) {
 
 	const ctx = [{}];
 
-	const keys = ['title', 'credit', 'cover', 'alt-text', 'caption', 'slide', 'annotation', 'annotation-caption', 'type'];
+	const keys = [
+		'title',
+		'credit',
+		'cover',
+		'alt-text',
+		'caption',
+		'slide',
+		'annotation',
+		'annotation-caption',
+		'type'
+	];
 
 	let key = null;
 
