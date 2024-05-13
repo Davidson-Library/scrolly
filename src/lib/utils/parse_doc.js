@@ -19,7 +19,6 @@ export function parse_doc(html) {
 
 	// convert all images to just their urls
 	node.querySelectorAll('img').forEach((el) => {
-		console.log(el);
 		const span = node.createElement('span');
 		span.innerHTML = el.getAttribute('src');
 		el.replaceWith(span);
@@ -32,11 +31,14 @@ export function parse_doc(html) {
 		'credit',
 		'cover',
 		'alt-text',
-		'caption',
 		'slide',
+		'slide-caption',
 		'annotation',
-		'annotation-caption',
-		'type'
+		'annotation-citation',
+		'type',
+		'caption', // deprecated 
+		'annotation-caption', // deprecated
+
 	];
 
 	let key = null;

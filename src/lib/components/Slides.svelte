@@ -1,5 +1,4 @@
 <script>
-	import { fade } from 'svelte/transition';
 	import Slide from './Slide.svelte';
 
 	export let slides;
@@ -43,11 +42,11 @@
 	</ol>
 	<div class="scrolly-slides-outer">
 		<ol class="scrolly-slides">
-			{#each slides as { type, slide, alt_text, caption }, index}
+			{#each slides as { type, slide, alt_text, caption }, index (index)}
 				{@const current = index === currIndex}
 				{@const next = index === currIndex + 1}
 				{#if current || next}
-					<li class={`scrolly-slide scrolly-slide-${index}`} style:opacity={current ? 1 : 0}>
+					<li class={`scrolly-slide scrolly-slide-${index}`} style:opacity={current ? 1 : 0} style:pointer-events={current ?  undefined : 'none'}>
 						<Slide {type} {slide} {alt_text} {caption} />
 					</li>
 				{/if}

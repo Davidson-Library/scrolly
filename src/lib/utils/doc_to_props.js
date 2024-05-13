@@ -1,5 +1,5 @@
-export const IS_IMAGE = /^\S+\.gif|jpe?g|tiff?|png|webp|bmp$/is;
-export const IS_VIDEO = /^\S+\.gif|jpe?g|tiff?|png|webp|bmp$/is;
+export const IS_IMAGE = /^\S+\.(gif|jpg|jpeg|tiff|png|webp|bmp)$/is;
+export const IS_VIDEO = /^\S+\.(mp4|avi|mov|flv|wmv|mkv)$/is;
 export const GDRIVE_LINK = /drive.google.com(?:.*)[^-\w]([-\w]{25,})[^-\w]?.*/is;
 export const YOUTUBE_LINK = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/is;
 export const VIMEO_LINK = /^.*vimeo\.com\/([^#&?]*).*/is;
@@ -95,6 +95,8 @@ async function guess_type(slide) {
 		if (type) window.localStorage.setItem(slide, type);
 	}
 
+	console.log(type, slide)
+
 	return type;
 }
 
@@ -124,6 +126,7 @@ async function resolve_slide(type, slide) {
 	}
 
 	if (IS_IMAGE.test(slide)) {
+		console.log('image', slide)
 		return {
 			type: 'image',
 			value: slide
@@ -190,17 +193,20 @@ export default async function transform_data(doc) {
 		.map((s) => {
 			const {
 				annotation,
-				caption,
+				'annotation-citation': annotation_citation,
+				'slide-caption': slide_caption,
 				'alt-text': alt_text,
 				slide,
 				type,
-				'annotation-caption': annotation_caption
+				caption, // deprecated
+				'annotation-caption': annotation_caption // deprecated
 			} = clean_slide(s);
+
 			return {
 				slide: resolve_slide(type, slide),
 				annotation,
-				annotation_caption,
-				caption,
+				annotation_caption: annotation_citation || annotation_caption,
+				caption: slide_caption || caption,
 				alt_text
 			};
 		})
