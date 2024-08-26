@@ -62,7 +62,6 @@
 	<nav>
 		<a href={get_preview_link(TEMPLATE_LINK)} rel="external">Example</a>
 		<a href={INSTRUCTIONS_LINK} rel="external">Instructions</a>
-		<a href={FAQ_LINK} target="_blank" rel="external nofollow">F.A.Q.</a>
 		<a href="https://github.com/Davidson-Library/scrolly" target="_blank" rel="external nofollow"
 			>Github</a
 		>
