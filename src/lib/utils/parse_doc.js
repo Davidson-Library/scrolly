@@ -36,9 +36,8 @@ export function parse_doc(html) {
 		'annotation',
 		'annotation-citation',
 		'type',
-		'caption', // deprecated 
-		'annotation-caption', // deprecated
-
+		'caption', // deprecated
+		'annotation-caption' // deprecated
 	];
 
 	let key = null;

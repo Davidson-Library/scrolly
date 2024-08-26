@@ -5,11 +5,8 @@
 	import { base } from '$app/paths';
 
 	const TEMPLATE_LINK = `https://docs.google.com/document/d/1TavVvjGEsgbP22xQ0elc_6_fxHIxjqyLXZhzEE3UA2k`;
-	const FAQ_LINK =
-		'https://docs.google.com/document/d/e/2PACX-1vQCjUjR49YvH9A_kH32RKwOgbYfuBE8WQC1KZ3L6mKihIoDjy6fIOggErjuGXXSL9FB7jO2RVWboeF5/pub';
-
 	const INSTRUCTIONS_LINK =
-		'https://docs.google.com/document/d/e/2PACX-1vQ8ubzpKmOpkacnY0s3ykzkB1y_ZYBTpl0ynFTLuy-nKHj249jJRntR3J6kK4NCka34Vut6P4NMVLid/pub';
+		'https://docs.google.com/document/d/1TavVvjGEsgbP22xQ0elc_6_fxHIxjqyLXZhzEE3UA2k/edit';
 	let input;
 	let embed_url = 'Loading...';
 	let snippet = 'Loading...';

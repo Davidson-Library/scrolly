@@ -46,7 +46,11 @@
 				{@const current = index === currIndex}
 				{@const next = index === currIndex + 1}
 				{#if current || next}
-					<li class={`scrolly-slide scrolly-slide-${index}`} style:opacity={current ? 1 : 0} style:pointer-events={current ?  undefined : 'none'}>
+					<li
+						class={`scrolly-slide scrolly-slide-${index}`}
+						style:opacity={current ? 1 : 0}
+						style:pointer-events={current ? undefined : 'none'}
+					>
 						<Slide {type} {slide} {alt_text} {caption} />
 					</li>
 				{/if}

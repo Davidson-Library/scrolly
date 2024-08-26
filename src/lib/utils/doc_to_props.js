@@ -95,8 +95,6 @@ async function guess_type(slide) {
 		if (type) window.localStorage.setItem(slide, type);
 	}
 
-	console.log(type, slide)
-
 	return type;
 }
 
@@ -126,7 +124,6 @@ async function resolve_slide(type, slide) {
 	}
 
 	if (IS_IMAGE.test(slide)) {
-		console.log('image', slide)
 		return {
 			type: 'image',
 			value: slide
