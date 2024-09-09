@@ -6,7 +6,7 @@
 
 	const TEMPLATE_LINK = `https://docs.google.com/document/d/1TavVvjGEsgbP22xQ0elc_6_fxHIxjqyLXZhzEE3UA2k`;
 	const INSTRUCTIONS_LINK =
-		'https://docs.google.com/document/d/1TavVvjGEsgbP22xQ0elc_6_fxHIxjqyLXZhzEE3UA2k/edit';
+		'https://docs.google.com/document/d/1rMxPHlnL87_6RK0fYVnjKOGda5akIooQF-ojYXfigAY/pub';
 	let input;
 	let embed_url = 'Loading...';
 	let snippet = 'Loading...';
