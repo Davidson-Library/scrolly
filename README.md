@@ -57,7 +57,21 @@ The dev server runs at http://localhost:5173.
 
 ## Deployment
 
-Every push to `main` triggers a [GitHub Action](./.github/workflows/main.yml) that builds the static site and FTPs it to a server maintained by Davidson College and @jacobheil. The built site is served at [https://digitalprojects.davidson.edu/scrollytellerdh/](https://digitalprojects.davidson.edu/scrollytellerdh/).
+The site is served from a Davidson/inkandbolts FTP server at [https://digitalprojects.davidson.edu/scrollytellerdh/](https://digitalprojects.davidson.edu/scrollytellerdh/). There are two deploy paths, described below; **use the local script as the primary path** until the CI issue is resolved.
+
+### Local deploy (current primary path)
+
+```sh
+brew install lftp       # one-time
+cp .env.example .env    # if .env is missing — then fill in credentials
+./deploy-site.sh
+```
+
+`deploy-site.sh` reads FTP credentials from a gitignored `.env` at the repo root, builds the site with `npm run build`, and syncs `build/` to the server over explicit FTPS using `lftp mirror --reverse --delete`. Credentials are managed separately from the code and never committed.
+
+### CI deploy (currently blocked)
+
+A [GitHub Action](./.github/workflows/main.yml) exists that was designed to deploy on every push to `main`, using `FTP_USERNAME`/`FTP_PASSWORD` repository secrets. As of April 2026 it fails: the FTP server's firewall blocks connections from GitHub Actions runner IPs on both port 21 (FTPS) and port 22 (SFTP), while residential IPs are allowed through. Until inkandbolts whitelists GitHub's IP ranges — or the site moves to a git-connected static host — every CI run fails at the FTP step after a ~30-second timeout.
 
 ## Image Proxy (Cloudflare Worker)
 
