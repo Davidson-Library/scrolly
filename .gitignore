@@ -6,3 +6,4 @@ package/
 .env
 dist/
 yarn-error.log
+.wrangler/

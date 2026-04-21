@@ -1,3 +1,5 @@
+import { proxy_image } from './image_proxy.js';
+
 export function parse_doc(html) {
 	// handle white space entities
 	html = html.replace(/&nbsp;/g, ' ');
@@ -20,7 +22,7 @@ export function parse_doc(html) {
 	// convert all images to just their urls
 	node.querySelectorAll('img').forEach((el) => {
 		const span = node.createElement('span');
-		span.innerHTML = el.getAttribute('src');
+		span.innerHTML = proxy_image(el.getAttribute('src'));
 		el.replaceWith(span);
 	});
 

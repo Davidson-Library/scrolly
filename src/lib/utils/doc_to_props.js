@@ -1,7 +1,8 @@
 export const IS_IMAGE = /^\S+\.(gif|jpg|jpeg|tiff|png|webp|bmp)$/is;
 export const IS_VIDEO = /^\S+\.(mp4|avi|mov|flv|wmv|mkv)$/is;
 export const GDRIVE_LINK = /drive.google.com(?:.*)[^-\w]([-\w]{25,})[^-\w]?.*/is;
-export const YOUTUBE_LINK = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/is;
+export const YOUTUBE_LINK =
+	/^https?:\/\/(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([^#&?/]+)/i;
 export const VIMEO_LINK = /^.*vimeo\.com\/([^#&?]*).*/is;
 export const TIKTOK_LINK = /^.*tiktok\.com\/(.*)\/video\/.*/is;
 
@@ -67,7 +68,7 @@ async function get_tiktok_embed(text) {
 }
 
 function get_youtube_embed(slide) {
-	const [, , fileId] = slide.match(YOUTUBE_LINK);
+	const [, fileId] = slide.match(YOUTUBE_LINK);
 	let url = `https://www.youtube.com/embed/${fileId}`;
 	const start = new URL(slide).searchParams.get('t');
 	if (start) url += `?start=${start}`;

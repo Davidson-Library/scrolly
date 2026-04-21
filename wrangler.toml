@@ -1,0 +1,3 @@
+name = "scrollyteller-image-proxy"
+main = "worker/image-proxy.js"
+compatibility_date = "2026-04-20"
